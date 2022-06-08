@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-
-
 export default function clock() {
   const [degHour, setDegHour] = useState({});
   const [degMinutes, setDegMinutes] = useState({});
   const [degSeconds, setDegSeconds] = useState({});
-  useEffect(()=>{
+  useEffect(() => {
     const timer = setInterval(() => {
       const getDate = new Date();
       let hours = getDate.getHours() * 30;
@@ -14,13 +12,11 @@ export default function clock() {
       let seconds = getDate.getSeconds() * 6;
       setDegSeconds({ transform: `rotateZ(${seconds}deg)` });
       setDegMinutes({ transform: `rotateZ(${minutes + seconds / 60}deg)` });
-      setDegHour({ transform: `rotateZ(${hours + (minutes / 12)}deg)` });
-    },1000)
-  
-    
-    return ()=> clearInterval(timer)
-  },[])
+      setDegHour({ transform: `rotateZ(${hours + minutes / 12}deg)` });
+    }, 1000);
 
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="Menu__block-clock--Body">

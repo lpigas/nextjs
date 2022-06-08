@@ -2,10 +2,9 @@ import React from "react";
 import Head from "next/head";
 import Navigate from "./components/Navigate";
 import Footer from "./components/Footer";
-import styles from './layout.module.css';
+import styles from "./layout.module.css";
 
 export default function Layout({ children }) {
-
   return (
     <div>
       <Head>Navigation</Head>
