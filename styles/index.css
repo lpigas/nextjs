@@ -1,0 +1,5 @@
+@import '../../nextjs-blog/components/atoms/clock/Clock.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import './global.css';

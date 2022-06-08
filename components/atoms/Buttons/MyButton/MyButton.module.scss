@@ -1,0 +1,16 @@
+.long{
+    width: 150px;
+    min-height: 50px;
+    border: 1px solid #0063cc;
+    border-radius: 15px;
+    background-color: #0063cc;
+    font-size: 16px;
+    &:hover{
+        background-color: #0069d9;
+        border-color: #0058cc;
+    }
+    &:focus{
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
+    }
+}
+
