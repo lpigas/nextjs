@@ -12,6 +12,7 @@ export default function Layout({ children }) {
       <header>
         <Navigate />
       </header>
+      <p className="mt-24">test</p>
       <div className={styles.containers}>{children}</div>
       <footer className={styles.footer}>
         <Footer />
