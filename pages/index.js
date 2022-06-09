@@ -30,10 +30,10 @@ export default function Home() {
           <div className="flex justify-around w-full mb-10">
             <Button size="lg" color="danger" onClick={postsmove}>Move Home</Button>
             <Button size="lg" color="danger" onClick={postsmove}>Move Post</Button>
-            <Button size="lg" color="danger" onClick={blogmove}>Move Menu</Button>
+            <Button size="lg" color="simple" onClick={blogmove}>Move Menu</Button>
           </div>
 
-
+          <p> lorem</p>
           <div className={"bottom-10 flex bg-black"}>
             <Clock />
           </div>

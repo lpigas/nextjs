@@ -3,7 +3,7 @@ import { NAV_MENU_BLOCK } from "../../constants/constantsNavMenu";
 
 export default function Navigate() {
   return (
-    <div className="w-full min-h-full flex justify-center">
+    <div className="w-full min-h-full flex justify-center mb-8">
       <div className="flex justify-center  w-full ">
         {NAV_MENU_BLOCK.map((item) => (
           <div

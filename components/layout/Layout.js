@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Navigate from "./components/Navigate";
 import Footer from "./components/Footer";
-import styles from "./layout.module.css";
+
 
 export default function Layout({ children }) {
   return (
@@ -11,8 +11,8 @@ export default function Layout({ children }) {
       <header>
         <Navigate />
       </header>
-      <div className={styles.containers}>{children}</div>
-      <footer className={styles.footer}>
+      <div className='flex w-full min-h-[38vh]'>{children}</div>
+      <footer className='w-full flex justify-center items-center mt-2'>
         <Footer />
       </footer>
     </div>
