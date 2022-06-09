@@ -9,9 +9,6 @@ export default function blogs({ allPostsData }) {
 
   return (
     <Layout>
-      <Head>
-        <title>Menu</title>
-      </Head>
       <div>
       <section>
         <h2 >Menu block</h2>

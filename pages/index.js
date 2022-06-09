@@ -14,9 +14,6 @@ export default function Home() {
 
   return (
     <Layout>
-      <Head>
-        <title> Home</title>
-      </Head>
       <div className="min-w-full">
         <main>
           <div className="flex justify-around w-full mb-10">

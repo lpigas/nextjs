@@ -7,7 +7,6 @@ export default function coctails(props) {
 
   return (
       <Layout>
-          <Head><title>Coctails</title></Head>
     <div>
         {props.posts.map(item => 
             <div key={item.body+item.title+item.id}
@@ -22,11 +21,12 @@ export default function coctails(props) {
       </Layout>
   )
 }
-export async function getStaticProps() {
+export async function getServerSideProps() {
+    
   const datas = await axios.get('https://jsonplaceholder.typicode.com/posts');
   const posts = datas.data
   return {
-    props: {
+    props: { 
         posts,
     },
   };
