@@ -11,7 +11,7 @@ export default function Layout({ children }) {
       <header>
         <Navigate />
       </header>
-      <div className='flex w-full min-h-[38vh]'>{children}</div>
+      <div className='flex w-10/12 m-auto min-h-[38vh]'>{children}</div>
       <footer className='w-full flex justify-center items-center mt-2'>
         <Footer />
       </footer>
