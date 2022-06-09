@@ -7,8 +7,8 @@ import { pageName } from "../functions/titlefound";
 
 export default function Layout({ children }) {
   const router = useRouter();
-  const titleFound = pageName(router)
-  console.log(titleFound)
+  const titleFound = pageName(router);
+  console.log(titleFound);
   return (
     <div>
       <Head>
@@ -17,8 +17,8 @@ export default function Layout({ children }) {
       <header>
         <Navigate />
       </header>
-      <div className='flex w-10/12 m-auto min-h-[50vh]'>{children}</div>
-      <footer className='w-full flex justify-center items-center mt-2'>
+      <div className="flex w-10/12 m-auto min-h-[50vh]">{children}</div>
+      <footer className="w-full flex justify-center items-center mt-2">
         <Footer />
       </footer>
     </div>
