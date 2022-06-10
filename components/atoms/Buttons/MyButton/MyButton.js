@@ -1,9 +1,9 @@
 import React from "react";
 
 export const SIZES = {
-  sm: "min-w-15 p-2",
-  md: "min-w-48 p-2",
-  lg: "min-w-96 p-2",
+  sm: "min-w-15 h-12 p-2",
+  md: "min-w-48 h-15 p-0",
+  lg: "min-w-96 h-12 p-2",
 };
 
 export const COLORS = {

@@ -8,7 +8,6 @@ import { pageName } from "../functions/titlefound";
 export default function Layout({ children }) {
   const router = useRouter();
   const titleFound = pageName(router);
-  console.log(titleFound);
   return (
     <div>
       <Head>

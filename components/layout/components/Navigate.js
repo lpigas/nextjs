@@ -12,7 +12,6 @@ export default function Navigate() {
           >
             <a
               className="flex 
-          bg-image
           w-11/12 
           h-48
           justify-center 
@@ -24,6 +23,7 @@ export default function Navigate() {
           text-lime-600/100 
           hover:opacity-100
           hover:text-black
+          hover:no-underline
           "
               href={item.href}
               alt={item.alt}
