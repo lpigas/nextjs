@@ -21,9 +21,11 @@ export default function Button({
   children,
   boxShadow = "shadow-xl",
   onClick,
+  disabled = false,
 }) {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       className={`${SIZES[size]} ${COLORS[color]} ${boxShadow} border-2 rounded-xl`}
     >

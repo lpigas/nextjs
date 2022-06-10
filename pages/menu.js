@@ -3,7 +3,6 @@ import React from "react";
 import Layout from "../components/layout/Layout";
 import { getSortedPostsData } from "../lib/menu";
 
-
 export default function blogs({ allPostsData }) {
   return (
     <Layout>
@@ -28,11 +27,17 @@ export default function blogs({ allPostsData }) {
           </ul>
         </section>
       </div>
-        <div  className="flex w-full justify-center items-center">
+      <div className="flex w-full justify-center items-center">
         <Button size="md" color="danger">
-        <a className="hover:no-underline flex w-38 m-1 " href="/menu/coctails"> Coctails menu</a>
+          <a
+            className="hover:no-underline flex w-38 m-1 "
+            href="/menu/coctails"
+          >
+            {" "}
+            Coctails menu
+          </a>
         </Button>
-        </div>
+      </div>
     </Layout>
   );
 }
