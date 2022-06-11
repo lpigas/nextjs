@@ -22,9 +22,9 @@ export default function Home() {
           </div>
 
           <p> lorem</p>
-          {/* <div className={"bottom-10 flex bg-black"}>
+          <div className={"bottom-10 flex "}>
             <Clock />
-          </div> */}
+          </div>
         </main>
       </div>
     </Layout>
