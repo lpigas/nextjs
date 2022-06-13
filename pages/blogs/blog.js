@@ -111,6 +111,8 @@ export default function blog(props) {
             </div>
             <div className="flex  justify-center">
               <Button
+                size="lg"
+                color="danger"
                 disabled={!item.completed}
                 onClick={() => deletedblog(item)}
               >

@@ -22,7 +22,7 @@ export default function Home() {
           </div>
 
           <p> lorem</p>
-          <div className={"bottom-10 flex "}>
+          <div className={" m-6 "}>
             <Clock />
           </div>
         </main>
