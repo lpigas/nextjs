@@ -5,7 +5,7 @@ import { SIZES } from "../components/atoms/Buttons/MyButton/MyButton";
 import Button from "../components/atoms/Buttons/MyButton/MyButton";
 import Clock from "../components/atoms/clock/Clock";
 
-export default function Home() {
+export default function Home(props) {
   const router = useRouter();
   const homemove = () => {
     router.push("/");
@@ -20,8 +20,6 @@ export default function Home() {
               Move Home
             </Button>
           </div>
-
-          <p> lorem</p>
           <div className={" m-6 "}>
             <Clock />
           </div>

@@ -10,9 +10,18 @@ export default function clock() {
       let hours = getDate.getHours() * 30;
       let minutes = getDate.getMinutes() * 6;
       let seconds = getDate.getSeconds() * 6;
-      setDegSeconds({ transformOrigin: '50% 100%', transform: `rotateZ(${seconds}deg)` });
-      setDegMinutes({ transformOrigin: '50% 100%',transform: `rotateZ(${minutes + seconds / 60}deg)` });
-      setDegHour({ transformOrigin: '50% 100%', transform: `rotateZ(${hours + minutes / 12}deg)` });
+      setDegSeconds({
+        transformOrigin: "50% 100%",
+        transform: `rotateZ(${seconds}deg)`,
+      });
+      setDegMinutes({
+        transformOrigin: "50% 100%",
+        transform: `rotateZ(${minutes + seconds / 60}deg)`,
+      });
+      setDegHour({
+        transformOrigin: "50% 100%",
+        transform: `rotateZ(${hours + minutes / 12}deg)`,
+      });
     }, 1000);
 
     return () => clearInterval(timer);
@@ -43,10 +52,7 @@ export default function clock() {
         </div>
         <div className="before:absolute w-10 h-10 before:justify-center justify-center before:flex flex rounded-full items-center bottom-4">
           {""}
-          <div
-            className="absolute flex before:content-[''] w-6 h-6 bg-white before:absolute z-[8]  rounded-full "
-
-          ></div>
+          <div className="absolute flex before:content-[''] w-6 h-6 bg-white before:absolute z-[8]  rounded-full "></div>
         </div>
 
         <div className="before:absolute w-56 h-56 rounded-full before:flex flex justify-center before:items-center ">

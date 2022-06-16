@@ -23,3 +23,9 @@ module.exports = withPlugins(
   [[optimizedImages, { inlineImageLimit: 1 }], [withFonts]],
   configuration
 );
+module.exports = {
+  env: {
+    API_HOST: process.env.API_HOST,
+    API_DATAS: process.env.API_DATA,
+  },
+};
