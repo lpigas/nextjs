@@ -19,6 +19,8 @@ const configuration = {
   },
 };
 
+
+
 module.exports = withPlugins(
   [[optimizedImages, { inlineImageLimit: 1 }], [withFonts]],
   configuration
@@ -28,4 +30,8 @@ module.exports = {
     API_HOST: process.env.API_HOST,
     API_DATAS: process.env.API_DATA,
   },
+  images: {
+    domains: ['images.prom.ua'],
+  },
 };
+

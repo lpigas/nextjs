@@ -3,8 +3,6 @@ import Layout from "../../components/layout/Layout";
 import { useRouter } from "next/router";
 import Button from "../../components/atoms/Buttons/MyButton/MyButton";
 import axios from "axios";
-import { BASE_URL } from "../../components/constants/consturl";
-import { urlmaker } from "../../components/functions/urlmaker";
 import BlogForm from "../../scenes/blog/BlogForm";
 
 export default function blog(props) {
@@ -15,7 +13,6 @@ export default function blog(props) {
   const [indexLimit, setIndexLimit] = useState(0);
   const [todosData, setTodosData] = useState(props.posts);
   const [totalBlogs, setTotalBlogs] = useState(props.dataLength.length);
-  const [totalDeleteBlogs, setTotalDeleteBlogs] = useState([]);
   const [totalPages, setTotalPages] = useState(
     Math.ceil(totalBlogs / numLimit)
   );
@@ -34,7 +31,10 @@ export default function blog(props) {
   };
 
   useEffect(() => {
-    router.push(`?_limit=${10}&_page=${1}`);
+    router.push(
+      `?_limit=${+router.query._limit || 10}&_page=${+router.query._page || 1}`
+    );
+    setNumLimit(+router.query._limit);
   }, []);
   useEffect(() => {
     setNumPage(router.query._page);
@@ -48,7 +48,7 @@ export default function blog(props) {
     numPage > totalPages &&
       router.push(`?_limit=${router.query._limit}&_page=${totalPages}`);
     setTotalPages(Math.ceil(totalBlogs / numLimit));
-    totalDeleteBlogs.length === 0 && changeData();
+    changeData();
   }, [numPage, numLimit]);
 
   const addPage = () => {
@@ -83,30 +83,27 @@ export default function blog(props) {
     alert(e.title);
     setTotalBlogs(totalBlogs - 1);
     setTotalPages(Math.ceil(totalBlogs / numLimit));
-    setTotalDeleteBlogs([...totalDeleteBlogs, e]);
   };
 
   return (
     <Layout>
       <div className="flex flex-col w-full">
         <div className="w-full flex justify-center text-4xl">
-          <p className="bg-sky-400 m-4 w-28 flex justify-center">
-            {totalBlogs}
-          </p>
+          <p className="bg-white m-4 w-28 flex justify-center ">{totalBlogs}</p>
         </div>
         {todosData.map((item) => (
           <div key={Math.random() * 13214864}>
             <BlogForm item={item} onClick={deletedblog} />
           </div>
         ))}
-        <div className="flex justify-center w-10/12 bg-sky-400 m-auto my-5">
+        <div className="flex justify-center w-10/12 bg-sky-400 m-auto my-5 ">
           page num = {numPage} from {totalPages}
         </div>
         <div className="flex justify-center w-full ">
           <Button onClick={minusPage}> page - 1</Button>
           <Button onClick={addPage}> page + 1</Button>
         </div>
-        <div className="flex justify-center w-10/12 bg-sky-400 m-auto my-5">
+        <div className="flex justify-center w-10/12 bg-sky-400 m-auto my-5 ">
           limit = {numLimit}
         </div>
         <div className="flex justify-center w-full ">

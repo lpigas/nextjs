@@ -12,7 +12,7 @@ const Socials = ({ social }) => {
       <div className="flex w-full justify-end m-auto">
         {social &&
           social.map((item) => (
-            <div key={item.id} className="flex w-full h-44 m-auto">
+            <div key={item.id} className="flex w-full m-auto">
               <a
                 href={item.path}
                 target="_blank"
@@ -21,7 +21,6 @@ const Socials = ({ social }) => {
               >
                 <i
                   className={`fab fa-${item.icon} hidden border-4 m-auto p-2 bg-sky-500`}
-                  style={{}}
                 />
               </a>
             </div>

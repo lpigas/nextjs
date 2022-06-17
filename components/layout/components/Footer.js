@@ -8,7 +8,7 @@ export default function Footer() {
   const [socialData, setSocialData] = useState([]);
   const foundData = async () => {
     try {
-      const datas = await axios.get(`${process.env.API_HOST}/socials`);
+      const datas = await axios.get(`${process.env.API_HOST}socials`);
       setSocialData(datas.data);
     } catch (e) {
       return {
@@ -19,7 +19,7 @@ export default function Footer() {
   useEffect(() => {
     foundData();
   }, []);
-
+  console.log(process.env.API_HOST)
   return (
     <div
       className="flex 
