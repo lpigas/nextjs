@@ -19,7 +19,7 @@ export default function Footer() {
   useEffect(() => {
     foundData();
   }, []);
-  console.log(process.env.API_HOST)
+
   return (
     <div
       className="flex 

@@ -13,6 +13,7 @@ export const COLORS = {
   danger:
     "bg-blue-500 text-lg text-gray-900 hover:bg-yellow-300 active:bg-sky-500",
   gold: "bg-amber-500 text-lg text-gray-50 hover:bg-amber-700 active:bg-amber-500",
+  notactive: "bg-gray-700 text-lg",
 };
 
 export default function Button({
