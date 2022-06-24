@@ -29,6 +29,6 @@ module.exports = {
     API_DATAS: process.env.API_DATA,
   },
   images: {
-    domains: ["images.prom.ua"],
+    domains: ["images.prom.ua", "cdn-icons-png.flaticon.com"],
   },
 };

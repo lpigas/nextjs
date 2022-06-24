@@ -1,17 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import MyButton from "../../components/atoms/Buttons/MyButton/MyButton";
+import PhotoBlock from "./components/PhotoBlock";
 
-export default function Enterproduct({ product, curs, onClick }) {
+export default function Enterproduct({
+  product,
+  curs,
+  setCart,
+  cart,
+  openprod,
+  buyNow,
+}) {
   const imageData = product.img.split(",");
-  console.log(product.producing_country === null);
+  const [photoFull, setPhotoFull] = useState(false)
+  const [photo,setPhoto] = useState(0)
+
+  const bigPhoto = (e) =>{
+    setPhotoFull(true)
+    setPhoto(e)
+  }
+  const changePhotoPlus = ()=>{
+    if(photo < imageData.length-1 ){
+        setPhoto(photo + 1)
+    } else{
+        setPhoto(0)
+    }
+  }
+  const changePhotovMinus = ()=>{
+    if(photo > 0){
+        setPhoto(photo - 1)
+    } else{
+        setPhoto(imageData.length-1)
+    }
+  }
+
   return (
     <div
       aria-disabled={product.availability === "-"}
       className=" flex flex-col p-2 border-2 bg-white m-2 w-full"
     >
+      <PhotoBlock visible={photoFull} setVisible={setPhotoFull} plus={changePhotoPlus} minus={changePhotovMinus}
+        imageData={imageData}
+        photo={photo}
+      />
       {}
       <div
+        onClick={() => openprod(product)}
         className={`flex justify-center  ${
           product.availability === "-" ? "bg-slate-700" : "bg-sky-400"
         } p-4 m-2`}
@@ -33,8 +67,9 @@ export default function Enterproduct({ product, curs, onClick }) {
       )}
       {/* <div className="flex justify-center items-center m-3">{product.body.length > 300 && product.body.slice(0,300)+'...'}</div> */}
       <div className="flex justify-center ">
-        {imageData.map((item) => (
+        {imageData.map((item, index) => (
           <div
+            onClick={()=>bigPhoto(index)}
             key={item}
             className="m-4 border-4 items-center border-sky-500 p-0"
           >
@@ -62,14 +97,16 @@ export default function Enterproduct({ product, curs, onClick }) {
         <MyButton
           size="lg"
           color={`${product.availability === "-" ? "notactive" : "danger"}`}
-          onClick={onClick}
+          onClick={() => setCart([...cart, product])}
+          disabled={product.availability === "-"}
         >
           Add to Cart
         </MyButton>
         <MyButton
           size="lg"
           color={`${product.availability === "-" ? "notactive" : "danger"}`}
-          onClick={onClick}
+          onClick={buyNow}
+          disabled={product.availability === "-"}
         >
           Buy Now
         </MyButton>
