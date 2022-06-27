@@ -15,27 +15,14 @@ export default function OrderingBlock({
   euserinfo,
   agree,
   valid,
+  ChangePcs,
 }) {
-  const [product, setProduct] = useState(
-    productData.length > 1
-      ? productData.slice(0, productData.length - 1)
-      : productData
-  );
-
-  useEffect(() => {
-    setProduct(
-      productData.length > 1
-        ? productData.slice(0, productData.length - 1)
-        : productData
-    );
-  }, [productData]);
-  console.log(product)
   return (
     <div className="">
       <MyModal visible={visible} setVisible={setVisible} zindex={899}>
         <ButtonClose onClick={() => setVisible(false)} />
-        {product && productData.length > 1 ? (
-          product.map((item) => (
+        {productData && (
+          productData.map((item) => (
             <div
               className="flex m-1 mx-2 p-1 pt-0"
               key={
@@ -47,37 +34,19 @@ export default function OrderingBlock({
               </div>
               <div className="border-4 flex w-5/12 items-center ">
                 {item.price} {item.currency} X{" "}
-                <input
-                  disabled
-                  className="w-10"
-                  value={productData[productData.length - 1][item.product_id]}
-                ></input>{" "}
+                <div
+                  onChange={(e)=>ChangePcs(e.target.value, item)}
+                  className="w-10 flex justify-center"
+
+                  
+                >{item.pcs || 1}</div>{" "}
                 {item.measurement}
               </div>
             </div>
           ))
-        ) : (
-          <div className="flex m-1 mx-2 p-1 pt-0">
-            <div className="border-4 flex w-11/12 items-center ">
-              {product.product_id}. {product.name_product}{" "}
-            </div>
-            <div className="border-4 flex w-5/12 items-center ">
-              {product.price} {product.currency} X{" "}
-              <input disabled className="w-10" value="1"></input>{" "}
-              {product.measurement}
-            </div>
-          </div>
         )}
-        <div className="flex justify-end m-2 p-2">
-          Total:{" "}
-          {productData.length > 1
-            ? `${totalSum.toFixed(2)} ${product[0].currency} / ${
-                (totalSum * curs).toFixed(2) 
-              } UAH`
-            : `${productData.price} ${product.currency} / ${
-                (+productData.price * curs).toFixed(2) 
-              } UAH`}
-        </div>
+         <div className="flex justify-end m-2 p-2">
+          Total:{" "}     {totalSum}   </div> 
         <form>
           <Inputoder
             placeholder="Enter your name*"
@@ -126,32 +95,30 @@ export default function OrderingBlock({
             onChange={(e) => setUserData({ ...userData, mail: e.target.value })}
           />
           <div className="flex m-2 justify-end items-center">
-          <label for="check1">
-            <input
-              type={"checkbox"}
-              required={true}
-              id="check1"
-              checked={userData.checked || false}
-              onChange={(e) =>
-                setUserData({ ...userData, checked: e.target.checked })
-              }
-            />
-            Agree send data
+            <label htmlFor="check1">
+              <input
+                type={"checkbox"}
+                id="check1"
+                checked={userData.checked}
+                onChange={(e) =>
+                  setUserData({ ...userData, checked: e.target.checked })
+                }
+              />
+              Agree send data
             </label>
           </div>
           <div className="m-1"></div>
         </form>
-              <div className="m-2">
-              <MyButton
-          size="lg"
-          color="danger"
-          onClick={valid ? agree : euserinfo}
-          value={1}
-        >
-          Agree
-        </MyButton>
-              </div>
-
+        <div className="m-2">
+          <MyButton
+            size="lg"
+            color="danger"
+            onClick={valid ? agree : euserinfo}
+            value={1}
+          >
+            Agree
+          </MyButton>
+        </div>
       </MyModal>
     </div>
   );

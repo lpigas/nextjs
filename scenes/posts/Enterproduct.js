@@ -10,6 +10,7 @@ export default function Enterproduct({
   cart,
   openprod,
   buyNow,
+  addToBasket,
 }) {
   const imageData = product.img.split(",");
   const [photoFull, setPhotoFull] = useState(false);
@@ -101,7 +102,8 @@ export default function Enterproduct({
         <MyButton
           size="lg"
           color={`${product.availability === "-" ? "notactive" : "danger"}`}
-          onClick={() => setCart([...cart, product])}
+          // onClick={() => setCart([...cart, product])}
+          onClick={() => addToBasket(product)}
           disabled={product.availability === "-"}
         >
           Add to Cart

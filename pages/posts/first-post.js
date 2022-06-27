@@ -18,13 +18,11 @@ import Modalagree from "../../scenes/posts/OrderingBlock/components/Modalagree";
 export default function FirstPost() {
   const curs = 36;
   const [openProductInfo, setOpenProductInfo] = useState(false);
-  const [cart, setCart] = useState([]);
   const [modalCart, setModalCart] = useState(false);
-  const [newArrayCart, setNewArrayCart] = useState(cart.filter(onlyUnique));
   const [totalSum, setTotalSum] = useState(0);
   const [fullScreenData, setFullScreenData] = useState();
   const [orderingModal, setOrderingModal] = useState(false);
-  const [orderingData, setOrderingData] = useState();
+  const [orderingData, setOrderingData] = useState([]);
   const [buyerData, setBuyerData] = useState({
     name: "",
     surname: "",
@@ -47,37 +45,50 @@ export default function FirstPost() {
     buyerData.checked;
   const [modalAgree, setModalAgree] = useState(false);
   const [modalEuserinfo, setModalEuserinfo] = useState(false);
+  const [cart, setCart] =useState([])
 
-  const pcsNum = cart.reduce((acc, el) => {
-    acc[el.product_id] = (acc[el.product_id] || 0) + 1;
-    return acc;
-  }, {});
 
-  function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
+  const addToBasket = product =>{
+    const isInBasket = cart.findIndex(item => item.product_id === product.product_id) !== -1
+    if (!isInBasket){
+      setCart([...cart, {...product, pcs:1}])
+    } else {
+      const modifProduct = cart.find(item => item.product_id === product.product_id)
+      const filterProduct = cart.filter(item => item.product_id !== product.product_id)
+      setCart([...filterProduct,{...modifProduct,pcs: modifProduct.pcs + 1}])
+    }
   }
-  useEffect(() => {
-    setNewArrayCart(cart.filter(onlyUnique));
-  }, [cart]);
-  useEffect(() => {
-    const sum = newArrayCart.reduce(
-      (first, second) => first + +second.price * +pcsNum[second.product_id],
-      0
-    );
-    setTotalSum(sum);
-  }, [pcsNum]);
+  const ChangePcs = (pcs, items) =>{
+    const modifProduct = cart.find(item => item.product_id === items.product_id)
+    const filterProduct = cart.filter(item => item.product_id !== items.product_id)
+    setCart([...filterProduct,{...modifProduct,pcs: pcs}])
+    }
+
+    
+  
+useEffect(()=>{
+  if(cart.length > 1){
+    const x = (cart.reduce((first,second)=> first + second.pcs * +second.price,0))
+    
+    setTotalSum(x)
+  } else if(cart.length === 1){
+    setTotalSum(+cart[0].pcs * +cart[0].price)
+  }
+  setOrderingData(cart)
+}, [cart])
+
   const openprod = (e) => {
     setFullScreenData(e);
     setOpenProductInfo(true);
   };
 
   const buyNow = (e) => {
-    setOrderingData(e);
+    setOrderingData([e]);
     setOrderingModal(true);
   };
 
   const buyAll = () => {
-    setOrderingData([...newArrayCart, pcsNum]);
+    setOrderingData(cart);
     setModalCart(false);
     setOrderingModal(true);
   };
@@ -103,8 +114,7 @@ export default function FirstPost() {
     setTotalSum(0);
     setOrderingData();
   };
-  
-  // console.log(validPhone)
+  console.log(orderingData)
   return (
     <Layout>
       {orderingData && (
@@ -119,9 +129,10 @@ export default function FirstPost() {
           agree={agree}
           euserinfo={euserinfo}
           valid={valid}
+          ChangePcs={ChangePcs}
         />
       )}
-      
+
       <Modalagree visible={modalAgree} setVisible={setModalAgree} zindex={999}>
         <div className="bg-white h-48 rounded-2xl flex flex-col items-center">
           <p className=""> Dear!</p>
@@ -178,8 +189,8 @@ export default function FirstPost() {
       <MyModal visible={modalCart} setVisible={setModalCart}>
         <div className="p-0">
           <ButtonClose onClick={() => setModalCart(false)} />
-          {newArrayCart.length > 0 ? (
-            newArrayCart.map((item) => (
+          {cart.length > 0 ? (
+            cart.map((item) => (
               <div
                 className="flex mx-2 p-1 pt-0"
                 key={
@@ -192,9 +203,10 @@ export default function FirstPost() {
                 <div className="border-4 flex w-5/12 items-center ">
                   {item.price} {item.currency} X{" "}
                   <input
-                    disabled
+                    // onBlur={1}
+                    onChange={(e)=>ChangePcs(+e.target.value, item) }
                     className="w-10"
-                    value={pcsNum[item.product_id]}
+                    value={item.pcs}
                   ></input>{" "}
                   {item.measurement}
                 </div>
@@ -231,7 +243,7 @@ export default function FirstPost() {
             <FullScreenProd data={fullScreenData} />
             <div className="flex justify-around m-2 p-5">
               <MyButton
-                onClick={() => setCart([...cart, fullScreenData])}
+                onClick={() => addToBasket(fullScreenData)}
                 disabled={fullScreenData.availability === "-"}
                 size="lg"
                 color={`${
@@ -271,6 +283,7 @@ export default function FirstPost() {
                 curs={curs}
                 setCart={setCart}
                 cart={cart}
+                addToBasket={addToBasket}
                 buyNow={() => buyNow(item)}
               />
             </div>
