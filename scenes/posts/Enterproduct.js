@@ -12,34 +12,38 @@ export default function Enterproduct({
   buyNow,
 }) {
   const imageData = product.img.split(",");
-  const [photoFull, setPhotoFull] = useState(false)
-  const [photo,setPhoto] = useState(0)
+  const [photoFull, setPhotoFull] = useState(false);
+  const [photo, setPhoto] = useState(0);
 
-  const bigPhoto = (e) =>{
-    setPhotoFull(true)
-    setPhoto(e)
-  }
-  const changePhotoPlus = ()=>{
-    if(photo < imageData.length-1 ){
-        setPhoto(photo + 1)
-    } else{
-        setPhoto(0)
+  const bigPhoto = (e) => {
+    setPhotoFull(true);
+    setPhoto(e);
+  };
+  const changePhotoPlus = () => {
+    if (photo < imageData.length - 1) {
+      setPhoto(photo + 1);
+    } else {
+      setPhoto(0);
     }
-  }
-  const changePhotovMinus = ()=>{
-    if(photo > 0){
-        setPhoto(photo - 1)
-    } else{
-        setPhoto(imageData.length-1)
+  };
+  const changePhotovMinus = () => {
+    if (photo > 0) {
+      setPhoto(photo - 1);
+    } else {
+      setPhoto(imageData.length - 1);
     }
-  }
+  };
 
   return (
     <div
       aria-disabled={product.availability === "-"}
       className=" flex flex-col p-2 border-2 bg-white m-2 w-full"
     >
-      <PhotoBlock visible={photoFull} setVisible={setPhotoFull} plus={changePhotoPlus} minus={changePhotovMinus}
+      <PhotoBlock
+        visible={photoFull}
+        setVisible={setPhotoFull}
+        plus={changePhotoPlus}
+        minus={changePhotovMinus}
         imageData={imageData}
         photo={photo}
       />
@@ -69,7 +73,7 @@ export default function Enterproduct({
       <div className="flex justify-center ">
         {imageData.map((item, index) => (
           <div
-            onClick={()=>bigPhoto(index)}
+            onClick={() => bigPhoto(index)}
             key={item}
             className="m-4 border-4 items-center border-sky-500 p-0"
           >

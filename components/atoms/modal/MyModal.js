@@ -1,6 +1,11 @@
 import React, { Children, useEffect, useState } from "react";
 
-export default function MyModal({ children, visible, setVisible, zindex=100 }) {
+export default function MyModal({
+  children,
+  visible,
+  setVisible,
+  zindex = 100,
+}) {
   const changeClasses = ["MyModal"];
 
   if (visible) {
@@ -8,8 +13,12 @@ export default function MyModal({ children, visible, setVisible, zindex=100 }) {
   }
 
   return (
-    <div className={changeClasses.join(" ")} style={{zIndex:zindex}} onClick={() => setVisible(false)}>
-      <div className="MyModalContent"  onClick={(e) => e.stopPropagation()}>
+    <div
+      className={changeClasses.join(" ")}
+      style={{ zIndex: zindex }}
+      onClick={() => setVisible(false)}
+    >
+      <div className="MyModalContent" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>

@@ -12,6 +12,7 @@
   background-color: #0ea5e9;
   border-radius: 20px;
   width: 750px;
+  /* max-height: 750px; */
 }
 .MyModal.active {
   display: flex;
