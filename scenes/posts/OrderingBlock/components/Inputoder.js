@@ -9,15 +9,17 @@ export default function Inputoder({
   value,
 }) {
   return (
-    <div className={`mx-2 min-w-12 flex items-center ${style}`}>
-      <input
-        className="m-1 w-96"
-        onChange={onChange}
-        value={"" || value}
-        required={required}
-        type={type}
-      ></input>
-      <div>{placeholder}</div>
+    <div className={`mx-2 min-w-12 flex items-center `}>
+      <div className="flex  w-1/2 justify-center">
+        <input
+          className="m-1 w-96 border-2 border-black"
+          onChange={onChange}
+          value={"" || value}
+          required={required}
+          type={type}
+        ></input>
+      </div>
+      <div className="flex justify-around w-1/2">{placeholder}</div>
     </div>
   );
 }

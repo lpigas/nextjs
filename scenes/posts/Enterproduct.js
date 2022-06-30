@@ -53,17 +53,16 @@ export default function Enterproduct({
           product.availability === "-" ? "bg-slate-700" : "bg-sky-400"
         } p-4 m-2`}
       >
-        
         {product.id}.{product.name_product}
       </div>
-      <div className="flex justify-center bg-slate-500">
+      <div className="flex justify-center bg-slate-500  p-2 m-1 mx-2">
         Retail Prices - {product.price} {product.currency} /{" "}
         {Math.ceil(+product.price * curs)} UAH
       </div>
       {product.type === "u" && (
         <div>
           {" "}
-          <div className="flex justify-center items-center bg-slate-500">
+          <div className="flex justify-center items-center bg-slate-500  p-2 mx-2">
             Opt Prices - {product.wholesale_price} {product.currency} /{" "}
             {(+product.wholesale_price * curs).toFixed(2)} UAH
           </div>
@@ -82,21 +81,11 @@ export default function Enterproduct({
         ))}
       </div>
       {product.producing_country !== null && (
-        <div
-          className={`${
-            product.availability === "-" ? "bg-slate-700" : "bg-sky-400"
-          } w-1/4 border-2`}
-        >
+        <div className={` w-2/4`}>
           Producing Country - {product.producing_country}
         </div>
       )}
-      <div
-        className={`${
-          product.availability === "-" ? "bg-slate-700" : "bg-sky-400"
-        } w-1/4 border-2`}
-      >
-        Group in Site - {product.group_name}
-      </div>
+      <div className={`w-2/4 `}>Group in Site - {product.group_name}</div>
       <div className="flex justify-center">
         <MyButton
           size="lg"

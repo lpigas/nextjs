@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { NAV_MENU_BLOCK } from "../../constants/constantsNavMenu";
 import Postsocials from "../../../scenes/posts/Postsocial";
-import axios from "axios";
 
 export default function Footer() {
-
   return (
     <div
       className="flex 

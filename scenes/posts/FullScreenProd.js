@@ -41,7 +41,7 @@ export default function FullScreenProd({ data }) {
         <div className="flex justify-center">
           {imageData.map((item, index) => (
             <div
-              className="flex w-full justify-center"
+              className="flex w-full justify-center m-2"
               key={item + Math.random()}
               onClick={() => bigPhoto(index)}
             >
