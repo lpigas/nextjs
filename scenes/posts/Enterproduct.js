@@ -53,6 +53,7 @@ export default function Enterproduct({
           product.availability === "-" ? "bg-slate-700" : "bg-sky-400"
         } p-4 m-2`}
       >
+        
         {product.id}.{product.name_product}
       </div>
       <div className="flex justify-center bg-slate-500">
