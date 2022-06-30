@@ -21,7 +21,7 @@ export const socials = [
   },
   {
     id: 5,
-    icon: "twitter",
+    icons: "twitter",
     path: "http://www.tiktok.com/@igorpigas",
   },
 ];

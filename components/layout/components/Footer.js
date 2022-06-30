@@ -5,20 +5,6 @@ import Postsocials from "../../../scenes/posts/Postsocial";
 import axios from "axios";
 
 export default function Footer() {
-  const [socialData, setSocialData] = useState([]);
-  const foundData = async () => {
-    try {
-      const datas = await axios.get(`${process.env.API_HOST}socials`);
-      setSocialData(datas.data);
-    } catch (e) {
-      return {
-        notFound: true,
-      };
-    }
-  };
-  useEffect(() => {
-    foundData();
-  }, []);
 
   return (
     <div
@@ -66,7 +52,7 @@ export default function Footer() {
         ))}
       </div>
       <div className="flex w-11/12   bg-blue-500 m-auto border-2 border-indigo-600">
-        <Postsocials social={socialData} />
+        <Postsocials />
       </div>
     </div>
   );

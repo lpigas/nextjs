@@ -45,37 +45,51 @@ export default function FirstPost() {
     buyerData.checked;
   const [modalAgree, setModalAgree] = useState(false);
   const [modalEuserinfo, setModalEuserinfo] = useState(false);
-  const [cart, setCart] =useState([])
-
-
-  const addToBasket = product =>{
-    const isInBasket = cart.findIndex(item => item.product_id === product.product_id) !== -1
-    if (!isInBasket){
-      setCart([...cart, {...product, pcs:1}])
+  const [cart, setCart] = useState([]);
+  const [focus, setFocus] = useState();
+  const addToBasket = (product) => {
+    const isInBasket =
+      cart.findIndex((item) => item.product_id === product.product_id) !== -1;
+    if (!isInBasket) {
+      setCart([...cart, { ...product, pcs: 1 }]);
     } else {
-      const modifProduct = cart.find(item => item.product_id === product.product_id)
-      const filterProduct = cart.filter(item => item.product_id !== product.product_id)
-      setCart([...filterProduct,{...modifProduct,pcs: modifProduct.pcs + 1}])
+      const modifProduct = cart.find(
+        (item) => item.product_id === product.product_id
+      );
+      const filterProduct = cart.filter(
+        (item) => item.product_id !== product.product_id
+      );
+      setCart([
+        ...filterProduct,
+        { ...modifProduct, pcs: modifProduct.pcs + 1 },
+      ]);
     }
-  }
-  const ChangePcs = (pcs, items) =>{
-    const modifProduct = cart.find(item => item.product_id === items.product_id)
-    const filterProduct = cart.filter(item => item.product_id !== items.product_id)
-    setCart([...filterProduct,{...modifProduct,pcs: pcs}])
-    }
+  };
+  const ChangePcs = (pcs, items) => {
+    const index = cart.findIndex((item) => {
+      if (items.product_id === item.product_id) {
+        return item;
+      }
+    });
+    const cart2 = cart;
+    setFocus(items);
+    cart2[index].pcs = pcs;
+    setCart([...cart2]);
+  };
 
-    
-  
-useEffect(()=>{
-  if(cart.length > 1){
-    const x = (cart.reduce((first,second)=> first + second.pcs * +second.price,0))
-    
-    setTotalSum(x)
-  } else if(cart.length === 1){
-    setTotalSum(+cart[0].pcs * +cart[0].price)
-  }
-  setOrderingData(cart)
-}, [cart])
+  useEffect(() => {
+    if (cart.length > 1) {
+      const x = cart.reduce(
+        (first, second) => first + second.pcs * +second.price,
+        0
+      );
+
+      setTotalSum(x);
+    } else if (cart.length === 1) {
+      setTotalSum(+cart[0].pcs * +cart[0].price);
+    }
+    setOrderingData(cart);
+  }, [cart]);
 
   const openprod = (e) => {
     setFullScreenData(e);
@@ -114,7 +128,11 @@ useEffect(()=>{
     setTotalSum(0);
     setOrderingData();
   };
-  console.log(orderingData)
+  const ResetCart = () => {
+    setCart([]);
+    setTotalSum(0);
+  };
+  console.log(focus);
   return (
     <Layout>
       {orderingData && (
@@ -203,8 +221,11 @@ useEffect(()=>{
                 <div className="border-4 flex w-5/12 items-center ">
                   {item.price} {item.currency} X{" "}
                   <input
-                    // onBlur={1}
-                    onChange={(e)=>ChangePcs(+e.target.value, item) }
+                    onChange={(e) => ChangePcs(+e.target.value, item)}
+                    type="number"
+                    autoFocus={
+                      focus ? item.product_id === focus.product_id : false
+                    }
                     className="w-10"
                     value={item.pcs}
                   ></input>{" "}
@@ -223,14 +244,26 @@ useEffect(()=>{
           Total: {totalSum.toFixed(2)}
         </div>
         <div className="m-1 flex justify-end">
-          <MyButton
-            disabled={totalSum === 0}
-            onClick={buyAll}
-            color={`${totalSum === 0 ? "notactive" : "danger"}`}
-            size="lg"
-          >
-            Buy All
-          </MyButton>
+          <div className="mx-2">
+            <MyButton
+              disabled={totalSum === 0}
+              onClick={buyAll}
+              color={`${totalSum === 0 ? "notactive" : "danger"}`}
+              size="lg"
+            >
+              Buy All
+            </MyButton>
+          </div>
+          <div>
+            <MyButton
+              disabled={totalSum === 0}
+              onClick={ResetCart}
+              color={`${totalSum === 0 ? "notactive" : "danger"}`}
+              size="lg"
+            >
+              Reset
+            </MyButton>
+          </div>
         </div>
       </MyModal>
 

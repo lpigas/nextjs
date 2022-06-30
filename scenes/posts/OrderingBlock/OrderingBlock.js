@@ -21,7 +21,7 @@ export default function OrderingBlock({
     <div className="">
       <MyModal visible={visible} setVisible={setVisible} zindex={899}>
         <ButtonClose onClick={() => setVisible(false)} />
-        {productData && (
+        {productData &&
           productData.map((item) => (
             <div
               className="flex m-1 mx-2 p-1 pt-0"
@@ -35,18 +35,16 @@ export default function OrderingBlock({
               <div className="border-4 flex w-5/12 items-center ">
                 {item.price} {item.currency} X{" "}
                 <div
-                  onChange={(e)=>ChangePcs(e.target.value, item)}
+                  onChange={(e) => ChangePcs(e.target.value, item)}
                   className="w-10 flex justify-center"
-
-                  
-                >{item.pcs || 1}</div>{" "}
+                >
+                  {item.pcs || 1}
+                </div>{" "}
                 {item.measurement}
               </div>
             </div>
-          ))
-        )}
-         <div className="flex justify-end m-2 p-2">
-          Total:{" "}     {totalSum}   </div> 
+          ))}
+        <div className="flex justify-end m-2 p-2">Total: {totalSum} </div>
         <form>
           <Inputoder
             placeholder="Enter your name*"
