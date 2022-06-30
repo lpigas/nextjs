@@ -6,8 +6,6 @@ import PhotoBlock from "./components/PhotoBlock";
 export default function Enterproduct({
   product,
   curs,
-  setCart,
-  cart,
   openprod,
   buyNow,
   addToBasket,
