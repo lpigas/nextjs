@@ -101,7 +101,7 @@ export default function ordering() {
   const agree = () => {
     setModalAgree(true);
     const numOrder = Math.ceil(Math.random() * 1000000);
-    localstor(`BuyerData${numOrder}`, [buyerData, ...data]);
+    localstor(`BuyerData`, [{...buyerData, order: numOrder}, ...data]);
   };
   const endOrder = () => {
     if (typeof window !== "undefined") {
