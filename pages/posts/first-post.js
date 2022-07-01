@@ -7,11 +7,8 @@ import MyModal from "../../components/atoms/modal/MyModal";
 import FullScreenProd from "../../scenes/posts/FullScreenProd";
 import MyButton from "../../components/atoms/Buttons/MyButton/MyButton";
 import ButtonClose from "../../components/atoms/Buttons/ButtonClose/ButtonClose";
-import OrderingBlock from "../../scenes/posts/OrderingBlock/OrderingBlock";
-
-import Image from "next/image";
-import Modalagree from "../../scenes/posts/OrderingBlock/components/Modalagree";
 import { useRouter } from "next/router";
+import { localstor } from "../../components/functions/localstor";
 
 export default function FirstPost() {
   const curs = 36;
@@ -84,51 +81,33 @@ export default function FirstPost() {
   };
   const ResetCart = () => {
     setCart([]);
+    if (typeof window !== "undefined" && cart.length > 0) {
+      window.localStorage.removeItem("dataCart");
+    }
     setTotalSum(0);
   };
-  // console.log(focus);
   const addLocal = () => {
-    if (typeof window !== "undefined" && cart.length > 0) {
-      window.localStorage.setItem("dataCart", JSON.stringify(cart));
-    }
+    localstor("dataCart", cart);
   };
   const addCart = () => {
     if (typeof window !== "undefined") {
       const data = window.localStorage.getItem("dataCart");
-      setCart(JSON.parse(data));
+      if (data === null) {
+        return setCart([]);
+      } else if (data !== "undefined") {
+        setCart(JSON.parse(data));
+      } else {
+        setCart([]);
+      }
     }
   };
 
   return (
     <Layout>
-      {/* <Modalagree visible={modalAgree} setVisible={setModalAgree} zindex={999}>
-        <div className="bg-white h-48 rounded-2xl flex flex-col items-center">
-          <p className=""> Dear!</p>
-          <p>
-            {" "}
-            Our buyer {buyerData.name} {buyerData.surname}
-          </p>
-          <p>
-            Your order at totall {orderingData && orderingData.price} USD hired
-            by our company
-          </p>
-          <p>after a call from our manager on the phone - {buyerData.phone}</p>
-          <p>order will be shipped to - {buyerData.adress}</p>
-          <p>thanks for your order</p>
-          <div onClick={endOrder}>
-            <Image
-              src="https://cdn-icons-png.flaticon.com/512/403/403474.png"
-              width={50}
-              height={50}
-            ></Image>
-          </div>
-        </div>
-      </Modalagree> */}
-
       <MyModal visible={modalCart} setVisible={setModalCart}>
         <div className="p-0">
           <ButtonClose onClick={() => setModalCart(false)} />
-          {cart.length > 0 ? (
+          {cart && cart.length > 0 ? (
             cart.map((item) => (
               <div
                 className="flex mx-2 p-1 pt-0"
@@ -139,17 +118,21 @@ export default function FirstPost() {
                 <div className="border-4 flex w-11/12 items-center ">
                   {item.product_id}. {item.name_product}{" "}
                 </div>
-                <div className="border-4 flex w-5/12 items-center ">
-                  {item.price} {item.currency} X{" "}
-                  <input
-                    onChange={(e) => ChangePcs(+e.target.value, item)}
-                    type="number"
-                    autoFocus={
-                      focus ? item.product_id === focus.product_id : false
-                    }
-                    className="w-10"
-                    value={item.pcs}
-                  ></input>{" "}
+                <div className="border-4 flex w-5/12 items-center justify-between">
+                  <div className="w-3/4">
+                    {item.price} {item.currency} X{" "}
+                  </div>
+                  <div>
+                    <input
+                      onChange={(e) => ChangePcs(+e.target.value, item)}
+                      type="number"
+                      autoFocus={
+                        focus ? item.product_id === focus.product_id : false
+                      }
+                      className="w-10"
+                      value={item.pcs}
+                    ></input>
+                  </div>{" "}
                   {item.measurement}
                 </div>
               </div>

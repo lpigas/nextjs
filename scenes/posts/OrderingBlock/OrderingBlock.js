@@ -12,6 +12,9 @@ export default function OrderingBlock({
   valid,
   ChangePcs,
   focus,
+  setFocus,
+  backProductPage,
+  delProduct,
 }) {
   return (
     <div className="flex flex-col border-2 w-full border-black ">
@@ -29,25 +32,39 @@ export default function OrderingBlock({
               <div className="w-24 flex justify-end">
                 <input
                   type={"number"}
+                  min="1"
+                  max="99999"
                   onChange={(e) => ChangePcs(e.target.value, item)}
                   autoFocus={
                     focus ? item.product_id === focus.product_id : false
                   }
-                  className="w-10 flex border-2 border-black items-center text-center"
+                  className="flex border-2 border-black items-center text-center"
                   value={item.pcs}
                 ></input>{" "}
               </div>
-              {item.measurement}
+              <div className="mx-2">{item.measurement} </div>
+              <div className="text-red-500 flex w-20 justify-end">
+                <div
+                  onClick={() => delProduct(item)}
+                  className="border-2 border-black"
+                >
+                  {" "}
+                  X
+                </div>
+              </div>
             </div>
           </div>
         ))}
-      <div className="flex justify-end m-2 p-2">Total: {totalSum} </div>
+      <div className="flex justify-end m-2 p-2">
+        Total: {totalSum.toFixed(2)}{" "}
+      </div>
       <form>
         <Inputoder
           placeholder="Enter your name*"
           type={"text"}
           required={true}
           value={userData.name}
+          onFocus={() => setFocus()}
           onChange={(e) => setUserData({ ...userData, name: e.target.value })}
         />
         <Inputoder
@@ -55,6 +72,7 @@ export default function OrderingBlock({
           type={"text"}
           required={true}
           value={userData.surname}
+          onFocus={() => setFocus()}
           onChange={(e) =>
             setUserData({ ...userData, surname: e.target.value })
           }
@@ -64,6 +82,7 @@ export default function OrderingBlock({
           type={"tel"}
           required={true}
           value={userData.phone}
+          onFocus={() => setFocus()}
           onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
         />
         <Inputoder
@@ -71,6 +90,7 @@ export default function OrderingBlock({
           type={"text"}
           required={true}
           value={userData.adress}
+          onFocus={() => setFocus()}
           onChange={(e) => setUserData({ ...userData, adress: e.target.value })}
         />
         <Inputoder
@@ -78,6 +98,7 @@ export default function OrderingBlock({
           type={"email"}
           required={true}
           value={userData.mail}
+          onFocus={() => setFocus()}
           onChange={(e) => setUserData({ ...userData, mail: e.target.value })}
         />
         <div className="flex m-2 justify-end items-center">
@@ -86,6 +107,7 @@ export default function OrderingBlock({
               type={"checkbox"}
               id="check1"
               checked={userData.checked}
+              onFocus={() => setFocus()}
               onChange={(e) =>
                 setUserData({ ...userData, checked: e.target.checked })
               }
@@ -96,13 +118,11 @@ export default function OrderingBlock({
         <div className="m-1"></div>
       </form>
       <div className="m-2 justify-end flex">
-        <MyButton
-          size="lg"
-          color="danger"
-          onClick={valid ? agree : euserinfo}
-          value={1}
-        >
+        <MyButton size="lg" color="danger" onClick={valid ? agree : euserinfo}>
           Agree
+        </MyButton>
+        <MyButton size="lg" color="danger" onClick={backProductPage}>
+          Return
         </MyButton>
       </div>
     </div>
