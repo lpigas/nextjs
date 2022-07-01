@@ -50,6 +50,9 @@ export default function FirstPost() {
   };
 
   useEffect(() => {
+    addCart();
+  }, []);
+  useEffect(() => {
     if (cart.length > 1) {
       const x = cart.reduce(
         (first, second) => first + second.pcs * +second.price,
@@ -62,9 +65,6 @@ export default function FirstPost() {
     }
     addLocal();
   }, [cart]);
-  useEffect(() => {
-    addCart();
-  }, []);
   const openprod = (e) => {
     setFullScreenData(e);
     setOpenProductInfo(true);
@@ -92,6 +92,7 @@ export default function FirstPost() {
   const addCart = () => {
     if (typeof window !== "undefined") {
       const data = window.localStorage.getItem("dataCart");
+      console.log(data)
       if (data === null) {
         return setCart([]);
       } else if (data !== "undefined") {
