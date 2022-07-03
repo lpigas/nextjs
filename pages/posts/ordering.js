@@ -11,6 +11,7 @@ import Modalagree from "../../scenes/posts/OrderingBlock/components/Modalagree";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { localstor } from "../../components/functions/localstor";
+import { makorderinfo } from "../../components/functions/makorderinfo";
 
 export default function ordering() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export default function ordering() {
     mail: "",
     checked: "",
   });
+  const [getOrdersData, setGetOrdersData] = useState([]);
   const validName = buyerData.name.length >= 2;
   const validSurname = buyerData.surname.length >= 2;
   const validPhone = numberValid(buyerData.phone) + buyerData.phone.length > 5;
@@ -42,6 +44,7 @@ export default function ordering() {
     buyerData.checked;
   const [modalEuserinfo, setModalEuserinfo] = useState(false);
   const [focus, setFocus] = useState();
+  const fullOrderData = data && makorderinfo(buyerData, data, totalSum);
 
   useEffect(() => {
     if (data && data.length > 1) {
@@ -63,7 +66,44 @@ export default function ordering() {
       setGetdata(window.localStorage.getItem("dataCart"));
     }
   };
+  const getsFullOrdersData = () => {
+    if (typeof window !== "undefined") {
+      const data = window.localStorage.getItem("OrdersData");
+      const returnData = data && JSON.parse(data);
+      setGetOrdersData(returnData || []);
+    }
+  };
+  const addFullOrdersData = () => {
+    if (getOrdersData.length === 0) {
+      localstor("OrdersData", [fullOrderData]);
+    } else {
+      const inOrdersdata = getOrdersData.find(
+        (item) => item.UserName === fullOrderData.UserName
+      );
+      const indexInOrdersdata = getOrdersData.findIndex(
+        (item) => item.UserName === fullOrderData.UserName
+      );
+      if (inOrdersdata === undefined && indexInOrdersdata === -1) {
+        localstor("OrdersData", [...getOrdersData, fullOrderData]);
+      } else if (inOrdersdata !== undefined && indexInOrdersdata !== -1) {
+        const newOrderingData = {
+          ...getOrdersData[indexInOrdersdata],
+          sumOrders: getOrdersData[indexInOrdersdata].sumOrders + +totalSum,
+          orderNum: [
+            ...getOrdersData[indexInOrdersdata].orderNum,
+            ...fullOrderData.orderNum,
+          ],
+        };
+        const filterOrderingData = getOrdersData.filter(
+          (item) => item.UserName !== fullOrderData.UserName
+        );
+        const newData = [newOrderingData, ...filterOrderingData];
+        localstor("OrdersData", newData);
+      }
+    }
+  };
   useEffect(() => {
+    getsFullOrdersData();
     addLocal();
   }, []);
   useEffect(() => {
@@ -100,10 +140,10 @@ export default function ordering() {
 
   const agree = () => {
     setModalAgree(true);
-    const numOrder = Math.ceil(Math.random() * 1000000);
-    localstor(`BuyerData`, [{...buyerData, order: numOrder}, ...data]);
   };
+
   const endOrder = () => {
+    addFullOrdersData();
     if (typeof window !== "undefined") {
       const data = window.localStorage.removeItem("dataCart");
     }

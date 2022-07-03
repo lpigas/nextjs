@@ -31,7 +31,7 @@ export default function blogs({ allPostsData }) {
         <Button size="md" color="danger">
           <a
             className="hover:no-underline flex w-38 m-1 "
-            href="/menu/coctails"
+            href="/menu/usersinfo"
           >
             {" "}
             Coctails menu

@@ -92,7 +92,7 @@ export default function FirstPost() {
   const addCart = () => {
     if (typeof window !== "undefined") {
       const data = window.localStorage.getItem("dataCart");
-      console.log(data)
+      console.log(data);
       if (data === null) {
         return setCart([]);
       } else if (data !== "undefined") {
