@@ -5,6 +5,7 @@ import ButtonClose from "../../components/atoms/Buttons/ButtonClose/ButtonClose"
 import {
   mailValid,
   numberValid,
+  addPhone,
 } from "../../components/functions/numbersvalid";
 import OrderingBlock from "../../scenes/posts/OrderingBlock/OrderingBlock";
 import Modalagree from "../../scenes/posts/OrderingBlock/components/Modalagree";
@@ -60,6 +61,10 @@ export default function ordering() {
       setTotalSum(0);
     }
   }, [data]);
+  useEffect(() => {
+    const clearPhone = addPhone(buyerData.phone);
+    setBuyerData({ ...buyerData, phone: clearPhone });
+  }, [buyerData.phone]);
 
   const addLocal = () => {
     if (typeof window !== "undefined") {

@@ -34,7 +34,7 @@ export default function blogs({ allPostsData }) {
             href="/menu/usersinfo"
           >
             {" "}
-            Coctails menu
+            All Users Data
           </a>
         </Button>
       </div>

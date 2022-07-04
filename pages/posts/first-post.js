@@ -58,7 +58,7 @@ export default function FirstPost() {
 
   useEffect(() => {
     addCart();
-    getCurs()
+    getCurs();
   }, []);
   useEffect(() => {
     if (cart.length > 1) {
@@ -100,7 +100,6 @@ export default function FirstPost() {
   const addCart = () => {
     if (typeof window !== "undefined") {
       const data = window.localStorage.getItem("dataCart");
-      console.log(data);
       if (data === null) {
         return setCart([]);
       } else if (data !== "undefined") {
@@ -212,7 +211,7 @@ export default function FirstPost() {
           </div>
         )}
       </MyModal>
-      <div className="border-2 w-14 h-10 bg-sky-500  flex flex-col">
+      <div className="border-2 w-14 max-h-14 bg-sky-500  flex flex-col">
         {curs} uhy
       </div>
 
