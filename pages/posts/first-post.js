@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { localstor } from "../../components/functions/localstor";
 
 export default function FirstPost() {
-  const curs = 36;
+  const [curs, setCurs] = useState(0);
   const [openProductInfo, setOpenProductInfo] = useState(false);
   const [modalCart, setModalCart] = useState(false);
   const [totalSum, setTotalSum] = useState(0);
@@ -37,6 +37,13 @@ export default function FirstPost() {
       ]);
     }
   };
+  const getCurs = () => {
+    if (typeof window !== "undefined") {
+      const data = window.localStorage.getItem("Curs");
+      const returnData = data && +JSON.parse(data);
+      setCurs(returnData || 0);
+    }
+  };
   const ChangePcs = (pcs, items) => {
     const index = cart.findIndex((item) => {
       if (items.product_id === item.product_id) {
@@ -51,6 +58,7 @@ export default function FirstPost() {
 
   useEffect(() => {
     addCart();
+    getCurs()
   }, []);
   useEffect(() => {
     if (cart.length > 1) {
