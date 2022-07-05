@@ -5,7 +5,7 @@ import { getSortedPostsData } from "../lib/menu";
 import { useRouter } from "next/router";
 
 
-export default function blogs({ allPostsData, pass }) {
+export default function blogs({ allPostsData }) {
   const router =useRouter()
 
   return (

@@ -10,13 +10,13 @@ export const NAV_MENU_BLOCK = [
     backgroundImage: "/images/ImagesNav/menu.png",
     items: [
       {
-        title: "Coctails menu",
-        href: "/menu/coctails",
+        title: "User Menu",
+        href: "/menu/userinfo",
       },
     ],
   },
   {
-    href: "/posts",
+    href: "/posts/first-post",
     alt: "Posts page",
     backgroundImage: "/images/ImagesNav/posts.jpg",
     items: [
