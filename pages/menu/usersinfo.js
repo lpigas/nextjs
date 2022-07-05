@@ -3,10 +3,16 @@ import Layout from "../../components/layout/Layout";
 import axios from "axios";
 import MyModal from "../../components/atoms/modal/MyModal";
 import UserInfo from "../../scenes/menu/UserInfo";
-import OrdersInfo from "../../scenes/menu/ordersInfo";
 import MyButton from "../../components/atoms/Buttons/MyButton/MyButton";
+import { useRouter } from "next/router";
+import ButtonClose from "../../components/atoms/Buttons/ButtonClose/ButtonClose";
+import Image from "next/image";
+import PasswordBlock from "../../components/moleculs/PasswordBlock/PasswordBlock";
+import Modalagree from "../../scenes/posts/OrderingBlock/components/Modalagree";
+import { validPass } from "../../components/functions/validPass";
 
-export default function coctails() {
+export default function userinfo({ pass }) {
+  const router = useRouter();
   const [getOrdersData, setGetOrdersData] = useState([]);
   const [userName, setUserName] = useState();
   const [orders, setOrders] = useState();
@@ -15,9 +21,22 @@ export default function coctails() {
   const [curs, setCurs] = useState(0);
   const [modalUserInfo, setModalUserInfo] = useState(false);
   const [oneUserInfo, setOneUserInfo] = useState();
-  const [modalOrders, setModalOrders] = useState(false);
-  const [ordersData, setOrdersData] = useState();
-
+  const [modalPass, setModalPass] = useState(false);
+  const [inputPass, setInputPass] = useState({ login: "", password: "" });
+  const [modalError, setModalError] = useState(false);
+  const testValidPass = () => {
+    const validetePass = validPass(inputPass, pass);
+    if (validetePass) {
+      setInputPass({ login: "", password: "" });
+      setModalPass(false);
+      router.push("./usersinfo");
+    } else {
+      setModalError(true);
+    }
+  };
+  useEffect(() => {
+    !modalPass && setInputPass({ login: "", password: "" });
+  }, [modalPass]);
   const getsFullOrdersData = () => {
     if (typeof window !== "undefined") {
       const data = window.localStorage.getItem("OrdersData");
@@ -40,6 +59,7 @@ export default function coctails() {
   };
 
   useEffect(() => {
+    setModalPass(true);
     getsFullOrdersData();
     getCurs();
   }, []);
@@ -58,8 +78,10 @@ export default function coctails() {
     setOneUserInfo(e);
   };
   const openOrders = (e) => {
-    setModalOrders(true);
-    setOrdersData(e);
+    if (typeof window !== "undefined") {
+      const data = window.localStorage.setItem("Orders", JSON.stringify(e));
+    }
+    router.push("./orders");
   };
   const resetUsers = () => {
     if (typeof window !== "undefined") {
@@ -70,9 +92,34 @@ export default function coctails() {
 
   return (
     <Layout>
-      <MyModal visible={modalOrders} setVisible={setModalOrders}>
-        <OrdersInfo data={ordersData} />
+      <MyModal
+        visible={modalError}
+        setVisible={setModalError}
+        zindex={400}
+        width={400}
+      >
+        <ButtonClose onClick={() => setModalError(false)} />
+        <div className="text-xl text-center m-1">
+          {" "}
+          Wrong Login or Password<p>Try againe</p>
+        </div>
+        <div className="text-center my-2">
+          <Image
+            onClick={() => setModalError(false)}
+            src={"https://cdn-icons-png.flaticon.com/512/1828/1828843.png"}
+            width={30}
+            height={30}
+          ></Image>
+        </div>
       </MyModal>
+      <Modalagree visible={modalPass} setVisible={setModalPass} width={400}>
+        <PasswordBlock
+          dataInput={inputPass}
+          setDataInput={setInputPass}
+          onClick={testValidPass}
+          onClickBack={() => router.push("../menu")}
+        />
+      </Modalagree>
 
       <MyModal visible={modalUserInfo} setVisible={setModalUserInfo}>
         {fullUserInfo && <UserInfo data={oneUserInfo} />}
@@ -127,18 +174,18 @@ export default function coctails() {
     </Layout>
   );
 }
-// export async function getServerSideProps() {
-//   try {
-//     const datas = await axios.get("https://jsonplaceholder.typicode.com/posts");
-//     const posts = datas.data;
-//     return {
-//       props: {
-//         posts,
-//       },
-//     };
-//   } catch {
-//     return {
-//       notFound: true,
-//     };
-//   }
-// }
+export async function getStaticProps() {
+  try {
+    const getApi = await axios.get(`${process.env.API_HOST}socials`);
+    const pass = getApi.data;
+    return {
+      props: {
+        pass,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
+}
