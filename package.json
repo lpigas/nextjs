@@ -12,6 +12,7 @@
     "fs": "0.0.1-security",
     "gray-matter": "^4.0.3",
     "next": "latest",
+    "next-absolute-url": "^1.2.2",
     "next-compose-plugins": "^2.2.1",
     "next-fonts": "^1.5.1",
     "next-optimized-images": "^2.6.2",

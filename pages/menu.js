@@ -4,9 +4,10 @@ import Layout from "../components/layout/Layout";
 import { getSortedPostsData } from "../lib/menu";
 import { useRouter } from "next/router";
 
-export default function blogs({ allPostsData, pass }) {
-  const router = useRouter();
 
+export default function blogs({ allPostsData, pass }) {
+  const router =useRouter()
+  console.log(process.env.API_HOST)
   return (
     <Layout>
       <div className="flex w-full">
