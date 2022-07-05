@@ -5,6 +5,7 @@ export default function MyModal({
   visible,
   setVisible,
   zindex = 100,
+  width = 750,
 }) {
   const changeClasses = ["MyModal"];
 
@@ -18,7 +19,11 @@ export default function MyModal({
       style={{ zIndex: zindex }}
       onClick={() => setVisible(false)}
     >
-      <div className="MyModalContent" onClick={(e) => e.stopPropagation()}>
+      <div
+        style={{ width: width }}
+        className="MyModalContent"
+        onClick={(e) => e.stopPropagation()}
+      >
         {children}
       </div>
     </div>

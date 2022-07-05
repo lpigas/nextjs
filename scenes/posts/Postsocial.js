@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { FacebookShareButton, FacebookIcon } from "next-share";
 import { TelegramShareButton, TelegramIcon } from "next-share";
 import { TwitterShareButton, TwitterIcon } from "next-share";

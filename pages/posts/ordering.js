@@ -78,15 +78,17 @@ export default function ordering() {
       setGetOrdersData(returnData || []);
     }
   };
+  console.log(getOrdersData);
+  console.log(fullOrderData);
   const addFullOrdersData = () => {
     if (getOrdersData.length === 0) {
       localstor("OrdersData", [fullOrderData]);
     } else {
       const inOrdersdata = getOrdersData.find(
-        (item) => item.UserName === fullOrderData.UserName
+        (item) => item.userinfo.mail === fullOrderData.userinfo.mail
       );
       const indexInOrdersdata = getOrdersData.findIndex(
-        (item) => item.UserName === fullOrderData.UserName
+        (item) => item.userinfo.mail === fullOrderData.userinfo.mail
       );
       if (inOrdersdata === undefined && indexInOrdersdata === -1) {
         localstor("OrdersData", [...getOrdersData, fullOrderData]);
@@ -100,7 +102,7 @@ export default function ordering() {
           ],
         };
         const filterOrderingData = getOrdersData.filter(
-          (item) => item.UserName !== fullOrderData.UserName
+          (item) => item.userinfo.mail !== fullOrderData.userinfo.mail
         );
         const newData = [newOrderingData, ...filterOrderingData];
         localstor("OrdersData", newData);
