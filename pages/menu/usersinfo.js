@@ -175,6 +175,7 @@ export default function userinfo({ pass }) {
   );
 }
 export async function getStaticProps() {
+  console.log(process.env.API_HOST)
   try {
     const getApi = await axios.get(`${process.env.API_HOST}socials`);
     const pass = getApi.data;
