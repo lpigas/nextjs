@@ -11,7 +11,8 @@ import PasswordBlock from "../../components/moleculs/PasswordBlock/PasswordBlock
 import Modalagree from "../../scenes/posts/OrderingBlock/components/Modalagree";
 import { validPass } from "../../components/functions/validPass";
 
-export default function userinfo({ pass }) {
+export default function userinfo() {
+  const [pass,setPass] = useState()
   const router = useRouter();
   const [getOrdersData, setGetOrdersData] = useState([]);
   const [userName, setUserName] = useState();
@@ -24,6 +25,16 @@ export default function userinfo({ pass }) {
   const [modalPass, setModalPass] = useState(false);
   const [inputPass, setInputPass] = useState({ login: "", password: "" });
   const [modalError, setModalError] = useState(false);
+
+  const getPass = async () =>{if (typeof window !== 'undefined') {
+    const hostname = window.location.origin;
+    const getApi = await axios.get(`${hostname+process.env.API_HOST}socials`);
+     setPass(getApi.data);
+    }}
+    
+    
+    console.log(pass)
+
   const testValidPass = () => {
     const validetePass = validPass(inputPass, pass);
     if (validetePass) {
@@ -44,7 +55,7 @@ export default function userinfo({ pass }) {
       setGetOrdersData(returnData || []);
     }
   };
-
+  
   const sendCurs = () => {
     if (typeof window !== "undefined") {
       const data = window.localStorage.setItem("Curs", curs);
@@ -57,8 +68,9 @@ export default function userinfo({ pass }) {
       setCurs(returnData || 0);
     }
   };
-
+  
   useEffect(() => {
+    getPass()
     setModalPass(true);
     getsFullOrdersData();
     getCurs();
@@ -113,7 +125,7 @@ export default function userinfo({ pass }) {
           ></Image>
         </div>
       </MyModal>
-      <Modalagree visible={modalPass} setVisible={setModalPass} width={400}>
+      <Modalagree visible={modalPass} width={400}>
         <PasswordBlock
           dataInput={inputPass}
           setDataInput={setInputPass}
@@ -175,24 +187,24 @@ export default function userinfo({ pass }) {
     </Layout>
   );
 }
-export async function getStaticProps() {
+// export async function getStaticProps() {
 
 
-  try {
-    let pass = ''
-    if (typeof window !== 'undefined') {
-    const hostname = window.location.origin;
-    const getApi = await axios.get(`${hostname+process.env.API_HOST}socials`);
-     pass = getApi.data;
-    }
-    return {
-      props: {
-        pass,
-      },
-    };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  }
-}
+//   try {
+//     let pass = ''
+//     if (typeof window !== 'undefined') {
+//     const hostname =  window.location.origin;
+//     const getApi = await axios.get(`${hostname+process.env.API_HOST}socials`);
+//      pass = getApi.data;
+//     }
+//     return {
+//       props: {
+//         pass,
+//       },
+//     };
+//   } catch (e) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }

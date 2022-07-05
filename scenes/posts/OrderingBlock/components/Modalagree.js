@@ -3,7 +3,7 @@ import React from "react";
 export default function Modalagree({
   children,
   visible,
-  setVisible,
+  width,
   zindex = 100,
 }) {
   const changeClasses = ["MyModal"];
@@ -14,7 +14,7 @@ export default function Modalagree({
 
   return (
     <div className={changeClasses.join(" ")} style={{ zIndex: zindex }}>
-      <div className="MyModalContent">{children}</div>
+      <div style={{width:width}} className="MyModalContent">{children}</div>
     </div>
   );
 }
