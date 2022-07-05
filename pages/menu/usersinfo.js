@@ -90,7 +90,7 @@ export default function userinfo({ pass }) {
     getsFullOrdersData();
   };
   
-  console.log(process.env.API_HOST)
+
   return (
     <Layout>
       <MyModal
