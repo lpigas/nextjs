@@ -42,17 +42,17 @@ export default function blogs({ allPostsData, pass }) {
     </Layout>
   );
 }
-// export async function getStaticProps() {
-//   try {
-//     const allPostsData = getSortedPostsData();
-//     return {
-//       props: {
-//         allPostsData,
-//       },
-//     };
-//   } catch (e) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-// }
+export async function getStaticProps() {
+  try {
+    const allPostsData = getSortedPostsData();
+    return {
+      props: {
+        allPostsData,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
+}
