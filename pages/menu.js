@@ -4,12 +4,13 @@ import Layout from "../components/layout/Layout";
 import { getSortedPostsData } from "../lib/menu";
 import { useRouter } from "next/router";
 
-export default function blogs({ allPostsData, pass }) {
-  const router = useRouter();
+
+export default function blogs({ allPostsData }) {
+  const router =useRouter()
 
   return (
     <Layout>
-      {/* <div className="flex w-full">
+      <div className="flex w-full">
         <section>
           <h2>Menu block</h2>
           <ul>
@@ -29,7 +30,7 @@ export default function blogs({ allPostsData, pass }) {
             )}
           </ul>
         </section>
-      </div> */}
+      </div>
       <div className="flex w-full justify-center items-center">
         <Button
           size="lg"
@@ -42,17 +43,17 @@ export default function blogs({ allPostsData, pass }) {
     </Layout>
   );
 }
-// export async function getStaticProps() {
-//   try {
-//     const allPostsData = getSortedPostsData();
-//     return {
-//       props: {
-//         allPostsData,
-//       },
-//     };
-//   } catch (e) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-// }
+export async function getStaticProps() {
+  try {
+    const allPostsData = getSortedPostsData();
+    return {
+      props: {
+        allPostsData,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
+}
