@@ -9,7 +9,7 @@ export default function blogs({ allPostsData, pass }) {
 
   return (
     <Layout>
-      {/* <div className="flex w-full">
+      <div className="flex w-full">
         <section>
           <h2>Menu block</h2>
           <ul>
@@ -29,7 +29,7 @@ export default function blogs({ allPostsData, pass }) {
             )}
           </ul>
         </section>
-      </div> */}
+      </div>
       <div className="flex w-full justify-center items-center">
         <Button
           size="lg"
