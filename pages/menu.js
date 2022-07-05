@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 export default function blogs({ allPostsData, pass }) {
   const router =useRouter()
-  console.log(router)
+
   return (
     <Layout>
       <div className="flex w-full">
