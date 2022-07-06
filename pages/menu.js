@@ -4,9 +4,8 @@ import Layout from "../components/layout/Layout";
 import { getSortedPostsData } from "../lib/menu";
 import { useRouter } from "next/router";
 
-
 export default function blogs({ allPostsData }) {
-  const router =useRouter()
+  const router = useRouter();
 
   return (
     <Layout>

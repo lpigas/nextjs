@@ -12,7 +12,7 @@ import Modalagree from "../../scenes/posts/OrderingBlock/components/Modalagree";
 import { validPass } from "../../components/functions/validPass";
 
 export default function userinfo() {
-  const [pass,setPass] = useState()
+  const [pass, setPass] = useState();
   const router = useRouter();
   const [getOrdersData, setGetOrdersData] = useState([]);
   const [userName, setUserName] = useState();
@@ -26,14 +26,17 @@ export default function userinfo() {
   const [inputPass, setInputPass] = useState({ login: "", password: "" });
   const [modalError, setModalError] = useState(false);
 
-  const getPass = async () =>{if (typeof window !== 'undefined') {
-    const hostname = window.location.origin;
-    const getApi = await axios.get(`${hostname+process.env.API_HOST}socials`);
-     setPass(getApi.data);
-    }}
-    
-    
-    console.log(pass)
+  const getPass = async () => {
+    if (typeof window !== "undefined") {
+      const hostname = window.location.origin;
+      const getApi = await axios.get(
+        `${hostname + process.env.API_HOST}socials`
+      );
+      setPass(getApi.data);
+    }
+  };
+
+  console.log(pass);
 
   const testValidPass = () => {
     const validetePass = validPass(inputPass, pass);
@@ -55,7 +58,7 @@ export default function userinfo() {
       setGetOrdersData(returnData || []);
     }
   };
-  
+
   const sendCurs = () => {
     if (typeof window !== "undefined") {
       const data = window.localStorage.setItem("Curs", curs);
@@ -68,9 +71,9 @@ export default function userinfo() {
       setCurs(returnData || 0);
     }
   };
-  
+
   useEffect(() => {
-    getPass()
+    getPass();
     setModalPass(true);
     getsFullOrdersData();
     getCurs();
@@ -101,7 +104,6 @@ export default function userinfo() {
     }
     getsFullOrdersData();
   };
-  
 
   return (
     <Layout>
@@ -188,7 +190,6 @@ export default function userinfo() {
   );
 }
 // export async function getStaticProps() {
-
 
 //   try {
 //     let pass = ''
