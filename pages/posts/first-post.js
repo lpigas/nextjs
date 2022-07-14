@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
-import productdata from "../../constants/data/productdata.json";
+// import productdata from "../../constants/data/productdata.json";
 import Enterproduct from "../../scenes/posts/Enterproduct";
 import Cart from "../../components/atoms/cart/cart";
 import MyModal from "../../components/atoms/modal/MyModal";
@@ -9,8 +9,10 @@ import MyButton from "../../components/atoms/Buttons/MyButton/MyButton";
 import ButtonClose from "../../components/atoms/Buttons/ButtonClose/ButtonClose";
 import { useRouter } from "next/router";
 import { localstor } from "../../components/functions/localstor";
+import axios from "axios";
+import clientPromise from "../../lib/mongodb";
 
-export default function FirstPost() {
+export default function FirstPost({productdata}) {
   const [curs, setCurs] = useState(0);
   const [openProductInfo, setOpenProductInfo] = useState(false);
   const [modalCart, setModalCart] = useState(false);
@@ -19,6 +21,7 @@ export default function FirstPost() {
   const router = useRouter();
   const [cart, setCart] = useState([]);
   const [focus, setFocus] = useState();
+
   const addToBasket = (product) => {
     const isInBasket =
       cart.findIndex((item) => item.product_id === product.product_id) !== -1;
@@ -57,6 +60,7 @@ export default function FirstPost() {
   };
 
   useEffect(() => {
+
     addCart();
     getCurs();
   }, []);
@@ -109,6 +113,22 @@ export default function FirstPost() {
       }
     }
   };
+  // const serverData = async ()=>{
+  //   try {
+  //     if (typeof window !== "undefined") {
+  //       const hostname = window.location.origin;
+  //       const fdata = await axios.get(
+  //         `${hostname + process.env.API_HOST}productdata`
+  //       );
+  //      setProductdata(fdata.data)
+  //     }
+
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
+
+
 
   return (
     <Layout>
@@ -211,16 +231,16 @@ export default function FirstPost() {
           </div>
         )}
       </MyModal>
-      <div className="border-2 w-14 max-h-14 bg-sky-500  flex flex-col">
+      <div className="border-2 mx-6 w-14 max-h-14 bg-sky-500  flex flex-col">
         {curs} uhy
       </div>
 
-      <div className="max-w-11/12  border-sky-500 m-auto">
-        {productdata.products &&
-          productdata.products.map((item) => (
+      <div className="max-w-11/12 w-full border-sky-500 m-auto">
+        {productdata &&
+          productdata.map((item) => (
             <div
               key={item.product_id}
-              className=" border-2 bg-blue-500 flex justify-center p-4 m-3"
+              className=" border-2 bg-blue-500 w-11/12 flex justify-center p-4 m-3"
             >
               <Enterproduct
                 openprod={openprod}
@@ -242,4 +262,19 @@ export default function FirstPost() {
       </div>
     </Layout>
   );
+}
+export async function getStaticProps() {
+  const client = await clientPromise;
+  const db = client.db(process.env.MONGODB_DB);
+  const productdata = await db
+    .collection("productdata")
+    .find({})
+    .limit(2)
+    .toArray();
+
+  return {
+    props: {
+      productdata: JSON.parse(JSON.stringify(productdata)),
+    },
+  };
 }

@@ -27,6 +27,8 @@ module.exports = {
   env: {
     API_HOST: process.env.API_HOST,
     API_DATAS: process.env.API_DATA,
+    API_PRODUCTDATA: process.env.API_PRODUCTDATA,
+    MONGODB_DB: process.env.MONGODB_DB,
   },
   images: {
     domains: ["images.prom.ua", "cdn-icons-png.flaticon.com"],
