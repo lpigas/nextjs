@@ -36,7 +36,7 @@ export default function userinfo() {
     }
   };
 
-  console.log(pass);
+  // console.log(pass);
 
   const testValidPass = () => {
     const validetePass = validPass(inputPass, pass);
@@ -140,6 +140,14 @@ export default function userinfo() {
         {fullUserInfo && <UserInfo data={oneUserInfo} />}
       </MyModal>
       <div className="flex items-center flex-col  w-full ">
+        <MyButton
+          size="lg"
+          color="danger"
+          onClick={() => router.push("./productsetings")}
+        >
+          {" "}
+          Product Setings
+        </MyButton>
         <input
           className="border-4 h-10"
           type={"number"}

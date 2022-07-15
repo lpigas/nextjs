@@ -12,7 +12,6 @@ export default function orders() {
       const data = window.localStorage.getItem("Orders");
       const returnData = data && JSON.parse(data);
       setOrdersData(returnData || 0);
-      console.log(returnData);
     }
   };
   useEffect(() => {

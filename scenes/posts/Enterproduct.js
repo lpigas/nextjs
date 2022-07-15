@@ -10,10 +10,10 @@ export default function Enterproduct({
   buyNow,
   addToBasket,
 }) {
-  const imageData = product.img.split(",");
+  const imageData = product.img && product.img.split(",");
   const [photoFull, setPhotoFull] = useState(false);
   const [photo, setPhoto] = useState(0);
-
+  console.log(product.availability);
   const bigPhoto = (e) => {
     setPhotoFull(true);
     setPhoto(e);
@@ -48,37 +48,49 @@ export default function Enterproduct({
       />
       {}
       <div
-        onClick={() => openprod(product)}
+        onClick={() =>
+          product.id !== undefined &&
+          product.price !== undefined &&
+          product.name_product !== undefined &&
+          openprod(product)
+        }
         className={`flex justify-center  ${
           product.availability === "-" ? "bg-slate-700" : "bg-sky-400"
         } p-4 m-2`}
       >
-        {product.id}.{product.name_product}
+        {product.id && product.id}.
+        {product.name_product && product.name_product}
       </div>
       <div className="flex justify-center bg-slate-500  p-2 m-1 mx-2">
-        Retail Prices - {product.price} {product.currency} /{" "}
-        {Math.ceil(+product.price * curs)} UAH
+        Retail Prices - {product.price && product.price}{" "}
+        {product.currency && product.currency} /{" "}
+        {Math.ceil(product.price && +product.price * curs)} UAH
       </div>
       {product.type === "u" && (
         <div>
           {" "}
           <div className="flex justify-center items-center bg-slate-500  p-2 mx-2">
-            Opt Prices - {product.wholesale_price} {product.currency} /{" "}
-            {(+product.wholesale_price * curs).toFixed(2)} UAH
+            Opt Prices - {product.wholesale_price && product.wholesale_price}{" "}
+            {product.currency && product.currenc} /{" "}
+            {(
+              product.wholesale_price && +product.wholesale_price * curs
+            ).toFixed(2)}{" "}
+            UAH
           </div>
         </div>
       )}
       {/* <div className="flex justify-center items-center m-3">{product.body.length > 300 && product.body.slice(0,300)+'...'}</div> */}
       <div className="flex justify-center ">
-        {imageData.map((item, index) => (
-          <div
-            onClick={() => bigPhoto(index)}
-            key={item}
-            className="m-4 border-4 items-center border-sky-500 p-0"
-          >
-            <Image src={item} alt={item} width={100} height={100}></Image>
-          </div>
-        ))}
+        {imageData &&
+          imageData.map((item, index) => (
+            <div
+              onClick={() => bigPhoto(index)}
+              key={item}
+              className="m-4 border-4 items-center border-sky-500 p-0"
+            >
+              <Image src={item} alt={item} width={100} height={100}></Image>
+            </div>
+          ))}
       </div>
       {product.producing_country !== null && (
         <div className={` w-2/4`}>
@@ -89,18 +101,29 @@ export default function Enterproduct({
       <div className="flex justify-center">
         <MyButton
           size="lg"
-          color={`${product.availability === "-" ? "notactive" : "danger"}`}
-          // onClick={() => setCart([...cart, product])}
+          color={`${
+            product.availability === "-" || product.availability === undefined
+              ? "notactive"
+              : "danger"
+          }`}
           onClick={() => addToBasket(product)}
-          disabled={product.availability === "-"}
+          disabled={
+            product.availability === "-" || product.availability === undefined
+          }
         >
           Add to Cart
         </MyButton>
         <MyButton
           size="lg"
-          color={`${product.availability === "-" ? "notactive" : "danger"}`}
+          color={`${
+            product.availability === "-" || product.availability === undefined
+              ? "notactive"
+              : "danger"
+          }`}
           onClick={buyNow}
-          disabled={product.availability === "-"}
+          disabled={
+            product.availability === "-" || product.availability === undefined
+          }
         >
           Buy Now
         </MyButton>

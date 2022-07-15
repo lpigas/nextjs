@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
-// import productdata from "../../constants/data/productdata.json";
 import Enterproduct from "../../scenes/posts/Enterproduct";
 import Cart from "../../components/atoms/cart/cart";
 import MyModal from "../../components/atoms/modal/MyModal";
@@ -9,10 +8,9 @@ import MyButton from "../../components/atoms/Buttons/MyButton/MyButton";
 import ButtonClose from "../../components/atoms/Buttons/ButtonClose/ButtonClose";
 import { useRouter } from "next/router";
 import { localstor } from "../../components/functions/localstor";
-import axios from "axios";
-import clientPromise from "../../lib/mongodb";
 
-export default function FirstPost({productdata}) {
+export default function FirstPost({ getproductData }) {
+  const [productdata, setProductdata] = useState(getproductData);
   const [curs, setCurs] = useState(0);
   const [openProductInfo, setOpenProductInfo] = useState(false);
   const [modalCart, setModalCart] = useState(false);
@@ -60,7 +58,6 @@ export default function FirstPost({productdata}) {
   };
 
   useEffect(() => {
-
     addCart();
     getCurs();
   }, []);
@@ -127,8 +124,6 @@ export default function FirstPost({productdata}) {
   //     alert(error)
   //   }
   // }
-
-
 
   return (
     <Layout>
@@ -239,18 +234,20 @@ export default function FirstPost({productdata}) {
         {productdata &&
           productdata.map((item) => (
             <div
-              key={item.product_id}
+              key={item.product_id + item.product_body + item.body_ucr}
               className=" border-2 bg-blue-500 w-11/12 flex justify-center p-4 m-3"
             >
-              <Enterproduct
-                openprod={openprod}
-                product={item}
-                curs={curs}
-                setCart={setCart}
-                cart={cart}
-                addToBasket={addToBasket}
-                buyNow={() => buyNow(item)}
-              />
+              {item && (
+                <Enterproduct
+                  openprod={openprod}
+                  product={item}
+                  curs={curs}
+                  setCart={setCart}
+                  cart={cart}
+                  addToBasket={addToBasket}
+                  buyNow={() => buyNow(item)}
+                />
+              )}
             </div>
           ))}
       </div>
@@ -263,18 +260,23 @@ export default function FirstPost({productdata}) {
     </Layout>
   );
 }
-export async function getStaticProps() {
-  const client = await clientPromise;
-  const db = client.db(process.env.MONGODB_DB);
-  const productdata = await db
-    .collection("productdata")
-    .find({})
-    .limit(2)
-    .toArray();
+export async function getServerSideProps(ctx) {
+  let getinfo = 1;
+  // get the current environment
+  let dev = process.env.NODE_ENV !== "production";
+  let { DEV_URL, PROD_URL } = process.env;
 
+  // request posts from api
+  let response = await fetch(
+    `${(dev ? DEV_URL : PROD_URL) + process.env.API_HOST}productdata`
+  );
+
+  // extract the data
+
+  getinfo = await response.json();
   return {
     props: {
-      productdata: JSON.parse(JSON.stringify(productdata)),
+      getproductData: getinfo.message,
     },
   };
 }
