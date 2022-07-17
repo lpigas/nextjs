@@ -38,12 +38,19 @@ export default function FirstPost({ getproductData }) {
       ]);
     }
   };
-  const getCurs = () => {
-    if (typeof window !== "undefined") {
-      const data = window.localStorage.getItem("Curs");
-      const returnData = data && +JSON.parse(data);
-      setCurs(returnData || 0);
-    }
+  const getCurs = async() => {
+    try {
+      // Delete post
+      const get =  await fetch(`${process.env.API_HOST}curs`, {
+        method: "GET",
+      });
+      // reload the page
+      const gets = await get.json()
+      setCurs(gets.message[0].curs)
+      } catch (error) {
+        // stop deleting state
+        // alert(error);
+      }
   };
   const ChangePcs = (pcs, items) => {
     const index = cart.findIndex((item) => {

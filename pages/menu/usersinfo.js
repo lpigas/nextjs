@@ -11,7 +11,7 @@ import PasswordBlock from "../../components/moleculs/PasswordBlock/PasswordBlock
 import Modalagree from "../../scenes/posts/OrderingBlock/components/Modalagree";
 import { validPass } from "../../components/functions/validPass";
 
-export default function userinfo() {
+export default function userinfo({passt}) {
   const [pass, setPass] = useState();
   const router = useRouter();
   const [getOrdersData, setGetOrdersData] = useState([]);
@@ -25,7 +25,8 @@ export default function userinfo() {
   const [modalPass, setModalPass] = useState(false);
   const [inputPass, setInputPass] = useState({ login: "", password: "" });
   const [modalError, setModalError] = useState(false);
-
+  const [cursId,setCursId] = useState()
+  const [changeCurs, setCangeCurs] = useState(false)
   const getPass = async () => {
     if (typeof window !== "undefined") {
       const hostname = window.location.origin;
@@ -36,8 +37,7 @@ export default function userinfo() {
     }
   };
 
-  // console.log(pass);
-
+  
   const testValidPass = () => {
     const validetePass = validPass(inputPass, pass);
     if (validetePass) {
@@ -59,17 +59,38 @@ export default function userinfo() {
     }
   };
 
-  const sendCurs = () => {
-    if (typeof window !== "undefined") {
-      const data = window.localStorage.setItem("Curs", curs);
+  
+  const sendCurs = async () => {
+    try {
+      await fetch(`${process.env.API_HOST}curs`,{
+        method:"PUT",
+        body: JSON.stringify({_id:cursId, curs:curs})
+      })
+      setCangeCurs(true)
+    } catch (error) {
+      alert(error)
     }
   };
-  const getCurs = () => {
-    if (typeof window !== "undefined") {
-      const data = window.localStorage.getItem("Curs");
-      const returnData = data && +JSON.parse(data);
-      setCurs(returnData || 0);
-    }
+  if (changeCurs === true){
+    setTimeout(()=>{
+      setCangeCurs(false)
+    },2000)
+
+  }
+  const getCurs = async() => {
+    try {
+      // Delete post
+      const get =  await fetch(`${process.env.API_HOST}curs`, {
+        method: "GET",
+      });
+      // reload the page
+      const gets = await get.json()
+      setCurs(gets.message[0].curs)
+      setCursId(gets.message[0]._id)
+      } catch (error) {
+        // stop deleting state
+        // alert(error);
+      }
   };
 
   useEffect(() => {
@@ -78,9 +99,7 @@ export default function userinfo() {
     getsFullOrdersData();
     getCurs();
   }, []);
-  useEffect(() => {
-    sendCurs();
-  }, [curs]);
+
   useEffect(() => {
     setUserName(getOrdersData.map((item) => item.UserName));
     setOrders(getOrdersData.map((item) => item.orderNum));
@@ -148,12 +167,17 @@ export default function userinfo() {
           {" "}
           Product Setings
         </MyButton>
+        <div>
         <input
-          className="border-4 h-10"
+          className="border-4 h-10 m-2"
           type={"number"}
           onChange={(e) => setCurs(+e.target.value)}
           value={curs}
         ></input>
+        <MyButton size="lg" color="danger" onClick={sendCurs}>ok</MyButton>
+        {changeCurs && <div className="text-green-500"> Curs are Changed </div>}
+
+        </div>
         <table className="border-2 border-black w-full flex justify-center mt-4">
           <tbody className=" flex justify-center w-full flex-col ">
             <tr className="text-center flex w-full">
@@ -200,15 +224,16 @@ export default function userinfo() {
 // export async function getStaticProps() {
 
 //   try {
-//     let pass = ''
+//     let passt = ''
 //     if (typeof window !== 'undefined') {
 //     const hostname =  window.location.origin;
-//     const getApi = await axios.get(`${hostname+process.env.API_HOST}socials`);
-//      pass = getApi.data;
-//     }
+//     const getApi = await axios.get(`${hostname+process.env.API_HOST}curs`);
+    
+//   }
+//   passt = window.location.origin;
 //     return {
 //       props: {
-//         pass,
+//         passt,
 //       },
 //     };
 //   } catch (e) {
