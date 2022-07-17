@@ -38,8 +38,8 @@ export default function productsetings({ getproductData }) {
 
   return (
     <Layout>
-      <div className="w-full border-2 border-black">
-        <div className="m-2 text-center">
+      <div className="w-full block border-2 border-black">
+        <div className="m-2 block w-full text-center">
           <MyButton
             size="lg"
             color="danger"

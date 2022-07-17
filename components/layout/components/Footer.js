@@ -8,16 +8,17 @@ export default function Footer() {
     <div
       className="flex 
     justify-center
-    m-auto 
     flex-col
+    bg-red-500
     mb-1
-    w-full "
+    w-full
+    "
     >
       <div
         className="flex 
-      w-11/12 
+      w-full 
       bg-blue-500 
-      justify-evenly 
+      justify-center 
       flex-row
       m-auto
       p-2 
@@ -49,7 +50,7 @@ export default function Footer() {
           </div>
         ))}
       </div>
-      <div className="flex w-11/12   bg-blue-500 m-auto border-2 border-indigo-600">
+      <div className="flex w-full   bg-blue-500 m-auto border-2 border-indigo-600">
         <Postsocials />
       </div>
     </div>

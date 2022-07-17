@@ -36,7 +36,7 @@ export default function Enterproduct({
   return (
     <div
       aria-disabled={product.availability === "-"}
-      className=" flex flex-col p-2 border-2 bg-white m-2 w-full"
+      className=" flex flex-col p-2 border-2 bg-white  w-full"
     >
       <PhotoBlock
         visible={photoFull}

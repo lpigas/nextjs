@@ -17,10 +17,10 @@ export default function OrderingBlock({
   delProduct,
 }) {
   return (
-    <div className="flex flex-col border-2 w-full border-black ">
+    <div className="flex flex-col border-2 w-full border-black overflow-x-auto relative p-2">
       {productData &&
         productData.map((item) => (
-          <div className="flex m-1 mx-2 p-1 pt-0" key={Math.random()}>
+          <div className="flex m-1 mx-2 p-1 pt-0 border-collapse" key={Math.random()}>
             <div className="border-4 flex w-11/12 items-center ">
               {item.product_id}. {item.name_product}{" "}
             </div>
@@ -55,7 +55,7 @@ export default function OrderingBlock({
       <div className="flex justify-end m-2 p-2">
         Total: {totalSum.toFixed(2)}{" "}
       </div>
-      <form>
+      <form className="p-2">
         <Inputoder
           placeholder="Enter your name*"
           type={"text"}

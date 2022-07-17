@@ -9,15 +9,15 @@ export default function Layout({ children }) {
   const router = useRouter();
   const titleFound = pageName(router);
   return (
-    <div>
+    <div className="blockr p-2">
       <Head>
         <title>{titleFound}</title>
       </Head>
       <header>
         <Navigate />
       </header>
-      <div className="flex w-10/12 m-auto min-h-[50vh]">{children}</div>
-      <footer className="w-full flex justify-center items-center mt-2">
+      <div className="flex  w-11/12 m-auto min-h-[50vh]">{children}</div>
+      <footer className="w-full flex items-center mt-2">
         <Footer />
       </footer>
     </div>

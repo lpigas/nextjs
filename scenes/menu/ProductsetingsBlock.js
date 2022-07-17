@@ -2,10 +2,11 @@ import React from "react";
 
 export default function ProductsetingsBlock({ data, deleteProduct }) {
   return (
-    <table className="w-full ">
-      <thead>
-        <tr>
-          <td className="border-2  border-black text-center">id</td>
+    <div className="w-full max-w-full overflow-x-auto relative">
+    <table className="w-full max-w-full block border-collapse">
+      <thead className=" ">
+        <tr className="">
+          <td className="border-2 w-min-content  border-black text-center">id</td>
           <td className="border-2 w-4/12 border-black text-center">Titel</td>
           <td className="border-2 w-1/12 border-black text-center">
             Price retail
@@ -21,16 +22,16 @@ export default function ProductsetingsBlock({ data, deleteProduct }) {
         </tr>
       </thead>
       {data ? (
-        <tbody>
+        <tbody className="w-full">
           {data.map((item) => (
-            <tr key={item._id}>
+            <tr key={item._id} className="">
               <td className="border-2 border-black text-center">
                 {item.id !== "null" ? item.id : item._id}
               </td>
               <td className="border-2 border-black text-center">
                 {item.name_product !== "null" ? item.name_product : "no name"}
               </td>
-              <td className="border-2 border-black text-center">
+              <td className="border-2 w-1/12 border-black text-center">
                 {item.price !== "null" ? (+item.price).toFixed(2) : 0}
               </td>
               <td className="border-2 border-black text-center">
@@ -69,5 +70,6 @@ export default function ProductsetingsBlock({ data, deleteProduct }) {
         </thead>
       )}
     </table>
+    </div>
   );
 }

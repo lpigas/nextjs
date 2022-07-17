@@ -78,8 +78,6 @@ export default function ordering() {
       setGetOrdersData(returnData || []);
     }
   };
-  console.log(getOrdersData);
-  console.log(fullOrderData);
   const addFullOrdersData = () => {
     if (getOrdersData.length === 0) {
       localstor("OrdersData", [fullOrderData]);

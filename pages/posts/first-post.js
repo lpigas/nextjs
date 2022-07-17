@@ -228,16 +228,16 @@ export default function FirstPost({ getproductData }) {
           </div>
         )}
       </MyModal>
-      <div className="border-2 mx-6 w-14 max-h-14 bg-sky-500  flex flex-col">
+      <div className="border-2 w-1/12 max-h-14 m-3 bg-sky-500 text-center">
         {curs} uhy
       </div>
 
-      <div className="max-w-11/12 w-full border-sky-500 m-auto">
+      <div className="max-w-10/12 w-10/12 border-sky-500 p-3 m-auto">
         {productdata &&
           productdata.map((item) => (
             <div
               key={Math.random()}
-              className=" border-2 bg-blue-500 w-11/12 flex justify-center p-4 m-3"
+              className=" border-2 bg-blue-500 w-full flex justify-center p-4 "
             >
               {item && (
                 <Enterproduct
@@ -253,7 +253,7 @@ export default function FirstPost({ getproductData }) {
             </div>
           ))}
       </div>
-      <div>
+      <div className="w-1/12">
         <Cart dataCart={cart} onClick={() => setModalCart(true)}>
           {" "}
           Cart
