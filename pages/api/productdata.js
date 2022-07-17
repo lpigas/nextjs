@@ -1,5 +1,5 @@
 const { connectToDatabase } = require("../../lib/mongodb");
-
+const ObjectId = require("mongodb").ObjectId;
 async function getProduct(req, res) {
   try {
     // connect to the database
@@ -71,7 +71,7 @@ async function deleteProduct(req, res) {
 
     // update the published status of the post
     await db.collection("productdata").deleteOne({
-      _id: req.body,
+      $or: [{ _id: new ObjectId(req.body) }, { _id: req.body }],
     });
 
     // return a message

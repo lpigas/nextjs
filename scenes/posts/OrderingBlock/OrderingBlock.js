@@ -20,10 +20,7 @@ export default function OrderingBlock({
     <div className="flex flex-col border-2 w-full border-black ">
       {productData &&
         productData.map((item) => (
-          <div
-            className="flex m-1 mx-2 p-1 pt-0"
-            key={item.id + item.name_product + item.product_id + Math.random()}
-          >
+          <div className="flex m-1 mx-2 p-1 pt-0" key={Math.random()}>
             <div className="border-4 flex w-11/12 items-center ">
               {item.product_id}. {item.name_product}{" "}
             </div>

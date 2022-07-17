@@ -34,17 +34,20 @@ export default function ProductsetingsBlock({ data, deleteProduct }) {
                 {item.price !== "null" ? (+item.price).toFixed(2) : 0}
               </td>
               <td className="border-2 border-black text-center">
-                {item.wholesale_price !== "null"
+                {item.wholesale_price !== "null" &&
+                item.wholesale_price !== undefined
                   ? (+item.wholesale_price).toFixed(2)
                   : "-"}
               </td>
               <td className="border-2 border-black text-center ">
-                {item.body !== "null"
-                  ? item.body.replace(/[^А-Яа-яЁё ,]/gi, "").slice(0, 60)
+                {item.body !== "null" && item.body.length !== 0
+                  ? item.body.replace(/[^А-Яа-яЁё0-9 .,]/gi, "").slice(0, 60)
                   : "-"}
               </td>
               <td className="border-2 border-black text-center ">
-                {item.img !== "null" ? item.img.split(" ").length : "-"}
+                {item.img !== "null" && item.img.length !== 0
+                  ? item.img.split(" ").length
+                  : "-"}
               </td>
               <td
                 className="border-2 cursor-default border-black text-center"

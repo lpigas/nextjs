@@ -7,10 +7,9 @@ import ProductsetingsBlock from "../../scenes/menu/ProductsetingsBlock";
 export default function productsetings({ getproductData }) {
   const [allProduct, setAllProduct] = useState(getproductData);
   const router = useRouter();
-
+  console.log(Object.keys({ a: 1 }).join("") === "a");
   const deleteProduct = async (Id) => {
     //change deleting state
-    console.log(Id.length);
 
     try {
       // Delete post
@@ -20,7 +19,7 @@ export default function productsetings({ getproductData }) {
       });
       // reload the page
 
-      let x = window.location.reload();
+      let reload = window.location.reload();
     } catch (error) {
       // stop deleting state
       alert(error);
@@ -40,7 +39,7 @@ export default function productsetings({ getproductData }) {
   return (
     <Layout>
       <div className="w-full border-2 border-black">
-        <div className=" text-center">
+        <div className="m-2 text-center">
           <MyButton
             size="lg"
             color="danger"

@@ -42,10 +42,12 @@ export default function FullScreenProd({ data }) {
           {imageData.map((item, index) => (
             <div
               className="flex w-full justify-center m-2"
-              key={item + Math.random()}
+              key={Math.random()}
               onClick={() => bigPhoto(index)}
             >
-              <Image key={item} src={item} width={50} height={50}></Image>
+              {item.includes("http") && (
+                <Image src={item} width={50} height={50}></Image>
+              )}
             </div>
           ))}
         </div>

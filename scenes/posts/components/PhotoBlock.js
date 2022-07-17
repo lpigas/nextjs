@@ -27,7 +27,9 @@ export default function PhotoBlock({
               />
             </div>
             <div className="flex items-center w-full justify-center">
-              <Image src={imageData[photo]} width={500} height={500} />
+              {imageData[photo].includes("http") && (
+                <Image src={imageData[photo]} width={500} height={500} />
+              )}
             </div>
             <div
               className="flex items-center justify-end cursor-pointer"

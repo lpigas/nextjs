@@ -132,12 +132,7 @@ export default function FirstPost({ getproductData }) {
           <ButtonClose onClick={() => setModalCart(false)} />
           {cart && cart.length > 0 ? (
             cart.map((item) => (
-              <div
-                className="flex mx-2 p-1 pt-0"
-                key={
-                  item.id + item.name_product + item.product_id + Math.random()
-                }
-              >
+              <div className="flex mx-2 p-1 pt-0" key={Math.random()}>
                 <div className="border-4 flex w-11/12 items-center ">
                   {item.product_id}. {item.name_product}{" "}
                 </div>
@@ -234,7 +229,7 @@ export default function FirstPost({ getproductData }) {
         {productdata &&
           productdata.map((item) => (
             <div
-              key={item.product_id + item.product_body + item.body_ucr}
+              key={Math.random()}
               className=" border-2 bg-blue-500 w-11/12 flex justify-center p-4 m-3"
             >
               {item && (

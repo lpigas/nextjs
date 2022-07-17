@@ -13,7 +13,7 @@ export default function Enterproduct({
   const imageData = product.img && product.img.split(",");
   const [photoFull, setPhotoFull] = useState(false);
   const [photo, setPhoto] = useState(0);
-  console.log(product.availability);
+  // console.log(product.availability);
   const bigPhoto = (e) => {
     setPhotoFull(true);
     setPhoto(e);
@@ -85,10 +85,12 @@ export default function Enterproduct({
           imageData.map((item, index) => (
             <div
               onClick={() => bigPhoto(index)}
-              key={item}
+              key={Math.random()}
               className="m-4 border-4 items-center border-sky-500 p-0"
             >
-              <Image src={item} alt={item} width={100} height={100}></Image>
+              {item.includes("http") && (
+                <Image src={item} alt={item} width={100} height={100}></Image>
+              )}
             </div>
           ))}
       </div>
