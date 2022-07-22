@@ -82,17 +82,21 @@ export default function Enterproduct({
       {/* <div className="flex justify-center items-center m-3">{product.body.length > 300 && product.body.slice(0,300)+'...'}</div> */}
       <div className="flex justify-center ">
         {imageData &&
-          imageData.map((item, index) => (
-            <div
-              onClick={() => bigPhoto(index)}
-              key={Math.random()}
-              className="m-4 border-4 items-center border-sky-500 p-0"
-            >
-              {item.includes("http") && (
-                <Image src={item} alt={item} width={100} height={100}></Image>
-              )}
-            </div>
-          ))}
+          imageData.map((item, index) => {
+            console.log(item.trim())
+            return (
+              <div
+                onClick={() => bigPhoto(index)}
+                key={Math.random()}
+                className="m-4 border-4 items-center border-sky-500 p-0"
+              >
+                {item.includes("http") && (
+                  
+                  <Image src={item.trim()} alt={item} width={100} height={100}></Image>
+                )}
+              </div>
+            )
+          })}
       </div>
       {product.producing_country !== null && (
         <div className={` w-2/4`}>
